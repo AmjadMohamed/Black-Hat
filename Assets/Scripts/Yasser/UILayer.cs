@@ -87,15 +87,19 @@ public class UILayer : MonoBehaviour
         }
 
 
-        switchingSidesPanel.gameObject.SetActive(true);
+        switchingSidesPanel.SetActive(true);
         yield return new WaitForSeconds(2f);
-        switchingSidesPanel.gameObject.SetActive(false);
+        switchingSidesPanel.GetComponent<PanelsDotween>().HidePanel();
     }
 
     public void ReturnToMainMenu()
     {
-        PhotonNetwork.LoadLevel(0);
-        Destroy(gameObject, 2.0f);
+        if (PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.Disconnect();
+        }
+        SceneManager.LoadScene(0);
+        Destroy(gameObject, 1);
     }
 
     public void ShowAds()
@@ -124,7 +128,8 @@ public class UILayer : MonoBehaviour
         matchDisconnetedPanel.SetActive(true);
         SceneManager.LoadScene(MatchManager.Instance.MAIN_MENU_SCENE_NAME);
         yield return new WaitForSeconds(3.0f);
-        Destroy(gameObject, 1.0f);
+        matchDisconnetedPanel.GetComponent<PanelsDotween>().HidePanel();
+        Destroy(gameObject, .5f);
     }
 
     #endregion

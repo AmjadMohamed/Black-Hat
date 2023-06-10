@@ -63,6 +63,7 @@ SpriteAtlas:
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 3c005940eed7b33439f3d598b3614e7a, type: 3}
+  - {fileID: 21300000, guid: 63b6ca70fa38c6248a0a3b953ac6bab3, type: 3}
   - {fileID: 21300000, guid: 46fe54801f3546e409f866c2c84e5ba1, type: 3}
   - {fileID: 21300000, guid: 64d097f0ffa4aaf4d9ece042bd82961f, type: 3}
   - {fileID: 21300000, guid: 8e10f541753478c458401e4ec04beb16, type: 3}
@@ -80,6 +81,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: a96cb4852cd730f42955b94e7c319042, type: 3}
   - {fileID: 21300000, guid: 507ab5a519b256946928d61af2791ae7, type: 3}
   - {fileID: 21300000, guid: 323736063cec1e2419511381f2853377, type: 3}
+  - {fileID: 21300000, guid: dbf5da562a7069b43b62888aa6423ef7, type: 3}
   - {fileID: 21300000, guid: 2dd817969e7ad2749a249bc8cb0fadb3, type: 3}
   - {fileID: 21300000, guid: c3122817d503ab94db2354cea854b49b, type: 3}
   - {fileID: 21300000, guid: 5fe8fd2778d0e644e9eb85eead6066cb, type: 3}
@@ -88,6 +90,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: c64f7b778bc800c49bb78c98c9e028ac, type: 3}
   - {fileID: 21300000, guid: be0072a7c58993e4d86463d046f55d1d, type: 3}
   - {fileID: 21300000, guid: 7e931a08fcb8ed4489c6e2f2b374b469, type: 3}
+  - {fileID: 21300000, guid: 5fd63e08716aeb146ad9e4f079b8a88c, type: 3}
   - {fileID: 21300000, guid: a7f21e18b14d86645970d0de8961c732, type: 3}
   - {fileID: 21300000, guid: f3534028e4337954098e42cf5d90c907, type: 3}
   - {fileID: 21300000, guid: 7b4827f8efe12a8459e700a171b7fe13, type: 3}
@@ -127,6 +130,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 475dd9ff25ad0fb429f2e45181967673, type: 3}
   m_PackedSpriteNamesToIndex:
   - Button
+  - Options UI
   - DeepScanner
   - New_Virus
   - Tower
@@ -144,6 +148,7 @@ SpriteAtlas:
   - New_Trojan Horse
   - HP
   - Lobby UI
+  - Options
   - Cofirm_Text
   - Highlighted_Join_Room
   - IMG_4156
@@ -152,6 +157,7 @@ SpriteAtlas:
   - PV_Main_Menu
   - Play_Text
   - NewBlankCard
+  - Pause UI
   - NewEnergy_Fill
   - DisabledButton
   - Background
