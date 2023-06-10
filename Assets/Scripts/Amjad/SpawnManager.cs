@@ -13,6 +13,7 @@ public class SpawnManager : MonoBehaviour
     public static SpawnManager Instance => _instance;
     [HideInInspector] public string ObjectName;
     [HideInInspector] public int ObjectEnergyCost;
+
     public Camera camera;
 
     void Start()

@@ -24,16 +24,17 @@ public class SoundManager : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
         _audioSource = GetComponent<AudioSource>();
+        PlayBackgroundMusic(GameplayMusic, .1f);
     }
 
-    public void PlaySoundEffect(AudioClip SFX, float volume = 1f, float pitch = 1f)
+    public void PlaySoundEffect(AudioClip SFX, float volume = 1f)
     {
-
+        _audioSource.PlayOneShot(SFX, volume);
     }
 
-    public void PlayBackgroundMusic(float volume = 1f, bool loop = true)
+    public void PlayBackgroundMusic(AudioClip BackgroundMusic, float volume = 1f, bool loop = true)
     {
-        //_audioSource.clip = BackgroundMusic;
+        _audioSource.clip = BackgroundMusic;
         _audioSource.volume = volume;
         _audioSource.loop = loop;
         _audioSource.Play();
@@ -45,23 +46,9 @@ public class SoundManager : MonoBehaviour
             _audioSource.Stop();
     }
 
-    public void SetMasterVolume(float volume)
-    {
-        AudioListener.volume = volume;
-    }
-
     public void SetBackgroundMusicVolume(float volume)
     {
         if (_audioSource != null)
             _audioSource.volume = volume;
-    }
-
-    public void SetSoundEffectVolume(float volume)
-    {
-        foreach (AudioSource source in GetComponentsInChildren<AudioSource>())
-        {
-            if (source != _audioSource)
-                source.volume = volume;
-        }
     }
 }
