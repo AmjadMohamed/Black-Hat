@@ -127,7 +127,8 @@ public class GridBuildingSystem3D : MonoBehaviour
                 {
                     Vector2Int rotationOffset = Vector2Int.zero;
                     Vector3 placedObjectWorldPosition = grid.GetWorldPosition(placedObjectOrigin.x, placedObjectOrigin.y) +new Vector3(rotationOffset.x, 0, rotationOffset.y)  * grid.GetCellSize()/2;
-
+                    if (GetPlacedObjectTypeSO() == null)
+                        return;
                     PlacedObject_Done placedObject = PlacedObject_Done.Create(placedObjectWorldPosition, placedObjectOrigin, dir, placedObjectTypeSO);
 
                     foreach (Vector2Int gridPosition in gridPositionList)
@@ -136,7 +137,7 @@ public class GridBuildingSystem3D : MonoBehaviour
                     }
 
                     OnObjectPlaced?.Invoke(this, EventArgs.Empty);
-                    EnergyManager.Instance.DecreaseEnergy(placedObjectTypeSO.energyReq);
+                    EnergyManager.Instance.DecreaseEnergy(towerBase.EnergyCost);
                     DeselectObjectType();
                     counter= 0;
                 }
@@ -153,7 +154,7 @@ public class GridBuildingSystem3D : MonoBehaviour
 
     }
 
-    private void DeselectObjectType() {
+    public void DeselectObjectType() {
         placedObjectTypeSO = null; 
         RefreshSelectedObjectType();
     }
@@ -187,13 +188,6 @@ public class GridBuildingSystem3D : MonoBehaviour
         }
     }
 
-    //public Quaternion GetPlacedObjectRotation() {
-    //    if (placedObjectTypeSO != null) {
-    //        return Quaternion.Euler(0, placedObjectTypeSO.GetRotationAngle(dir), 0);
-    //    } else {
-    //        return Quaternion.identity;
-    //    }
-    //}
 
     public PlacedObjectTypeSO GetPlacedObjectTypeSO() {
         return placedObjectTypeSO;

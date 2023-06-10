@@ -36,6 +36,10 @@ public class Mouse3D : MonoBehaviour {
             return hit.point;
 
         }
+        else
+        {
+            GridBuildingSystem3D.Instance.DeselectObjectType();
+        }
         return hit.point;
     }
 

@@ -63,7 +63,7 @@ public class TouchInputManager : MonoBehaviour
             }
             else
             {
-                touchWorldPosition = camera.ScreenToWorldPoint(touch.position);
+                GridBuildingSystem3D.Instance.DeselectObjectType();
             }
         }
 
