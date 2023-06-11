@@ -25,15 +25,11 @@ public class PanelsDotween : MonoBehaviour
     private GameObject _panel;
     private Dictionary<TweenTypes, Ease> _inTweenTypes;
     private Dictionary<TweenTypes, Ease> _outTweenTypes;
+    private Tween _myTween;
 
     // public variables
-    [SerializeField] // Add this attribute
     public TweenTypes SelectedOption;
-
-    [SerializeField] // Add this attribute
     public GameObject Parent;
-
-    [SerializeField] // Add this attribute
     public float TransitionDuration = 0.5f;
 
 
@@ -77,24 +73,31 @@ public class PanelsDotween : MonoBehaviour
         ShowPanel();
     }
 
+    void OnDisable()
+    {
+        HidePanel();
+    }
+
     public void ShowPanel()
     {
+        _myTween?.Kill();
         _panelRect.localScale = Vector3.one * 0.5f;
         _panel.SetActive(true);
 
-        _panelRect.DOScale(Vector3.one, TransitionDuration)
+        _myTween = _panelRect.DOScale(Vector3.one, TransitionDuration)
             .SetEase(_outTweenTypes[SelectedOption]);
     }
 
     public void HidePanel()
     {
-        _panelRect.DOScale(Vector3.one * 0.5f, TransitionDuration)
+        _myTween = _panelRect.DOScale(Vector3.one * 0.5f, TransitionDuration)
             .SetEase(_inTweenTypes[SelectedOption])
             .OnComplete(DeactivatePanel);
     }
 
     private void DeactivatePanel()
     {
+        _panel.SetActive(false);
         Parent?.SetActive(false);
     }
 }

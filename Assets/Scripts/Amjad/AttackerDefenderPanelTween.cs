@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using static UnityEngine.Rendering.DebugUI;
 
 public class AttackerDefenderPanelTween : MonoBehaviour
@@ -19,19 +20,23 @@ public class AttackerDefenderPanelTween : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-            _panelTweener?.Kill(); // Kill any previous tweens
-            _panel.SetActive(true);
-            _panelTweener = _panel.transform.DOLocalMove(new Vector3(0,70,0), 1f);
-        }
-        else if (Input.GetMouseButtonUp(0) && _panel.activeSelf)
-        {
-            //_panelTweener?.Kill(); // Kill any previous tweens
-            _panelTweener = _panel.transform.DOLocalMove(new Vector3(0, -2000f, 0f), 10f).OnComplete(() =>
+            if (Input.GetMouseButtonDown(0))
             {
-                _panel.SetActive(false);
-            }).SetDelay(_delayTime);
+                _panelTweener?.Kill(); // Kill any previous tweens
+                _panel.SetActive(true);
+                _panelTweener = _panel.transform.DOLocalMove(new Vector3(0, 70, 0), 1f);
+            }
+            else if (Input.GetMouseButtonUp(0) && _panel.activeSelf)
+            {
+                //_panelTweener?.Kill(); // Kill any previous tweens
+                _panelTweener = _panel.transform.DOLocalMove(new Vector3(0, -2000f, 0f), 10f).OnComplete(() =>
+                {
+                    _panel.SetActive(false);
+                }).SetDelay(_delayTime);
+            }
         }
+
     }
 }

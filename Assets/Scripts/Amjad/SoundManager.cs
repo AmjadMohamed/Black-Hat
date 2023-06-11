@@ -9,7 +9,7 @@ public class SoundManager : MonoBehaviour
     public AudioClip GameplayMusic;
 
     // Private Variables
-    [HideInInspector] private AudioSource _audioSource;
+    private AudioSource _audioSource;
 
     public static SoundManager Instance => _instance;
 
@@ -50,5 +50,10 @@ public class SoundManager : MonoBehaviour
     {
         if (_audioSource != null)
             _audioSource.volume = volume;
+    }
+
+    public float GetAudioSourceVolume()
+    {
+        return _audioSource.volume;
     }
 }
