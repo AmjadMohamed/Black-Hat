@@ -22,7 +22,6 @@ public class PanelsDotween : MonoBehaviour
 
     // private variables
     private RectTransform _panelRect;
-    private GameObject _panel;
     private Dictionary<TweenTypes, Ease> _inTweenTypes;
     private Dictionary<TweenTypes, Ease> _outTweenTypes;
     private Tween _myTween;
@@ -30,6 +29,7 @@ public class PanelsDotween : MonoBehaviour
     // public variables
     public TweenTypes SelectedOption;
     public GameObject Parent;
+    public GameObject _panel;
     public float TransitionDuration = 0.5f;
 
 
@@ -68,7 +68,7 @@ public class PanelsDotween : MonoBehaviour
 
     void OnEnable()
     {
-        _panel = this.gameObject;
+        //_panel = this.gameObject;
         _panelRect = _panel.GetComponent<RectTransform>();
         ShowPanel();
     }

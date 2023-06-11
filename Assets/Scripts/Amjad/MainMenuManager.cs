@@ -26,6 +26,11 @@ public class MainMenuManager : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        print(PhotonNetwork.NetworkClientState);
+    }
+
     public void CheckIfPlayerEnteredHisName()
     {
         if (_ifPlayerNickName.text.Length > 0)
@@ -46,6 +51,12 @@ public class MainMenuManager : MonoBehaviour
 
     public void CreateOrJoinRoom(TMP_InputField RoomName)
     {
+        if (PhotonNetwork.NetworkClientState == ClientState.Joined)
+        {
+            PhotonNetwork.Disconnect();
+            PhotonNetwork.ConnectUsingSettings();
+        }
+
         if (!string.IsNullOrEmpty(RoomName.text) && PhotonNetwork.NetworkClientState == ClientState.ConnectedToMasterServer)
         {
             NetworkingManager.Instance.CreateOrJoinRoom(RoomName.text);
@@ -59,8 +70,15 @@ public class MainMenuManager : MonoBehaviour
 
     public void JoinRandomRoom()
     {
+        if (PhotonNetwork.NetworkClientState == ClientState.Joined)
+        {
+            PhotonNetwork.Disconnect();
+            PhotonNetwork.ConnectUsingSettings();
+        }
+
         if (PhotonNetwork.NetworkClientState == ClientState.ConnectedToMasterServer)
         {
+            print("SOSK");
             NetworkingManager.Instance.QuickMatch();
             _waitingForPlayerPanel.SetActive(true);
         }
@@ -84,6 +102,6 @@ public class MainMenuManager : MonoBehaviour
     {
         _rejoinPanel.SetActive(true);
         yield return new WaitForSeconds(2.0f);
-        _rejoinPanel.SetActive(false);
+        _rejoinPanel.GetComponent<PanelsDotween>().HidePanel();
     }
 }

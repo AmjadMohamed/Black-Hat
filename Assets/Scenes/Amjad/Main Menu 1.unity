@@ -1948,7 +1948,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &458464924
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2045,7 +2045,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!114 &458464929
 MonoBehaviour:
@@ -2060,7 +2060,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectedOption: 0
-  Parent: {fileID: 1610760101}
+  Parent: {fileID: 458464923}
+  _panel: {fileID: 458464923}
   TransitionDuration: 0.5
 --- !u!1 &462945385
 GameObject:
@@ -2487,7 +2488,7 @@ MonoBehaviour:
   _welcomePanel: {fileID: 1480958704}
   _mainMenuPanel: {fileID: 769030304}
   _chooseModePanel: {fileID: 1704003140}
-  _waitingForPlayerPanel: {fileID: 1610760101}
+  _waitingForPlayerPanel: {fileID: 458464923}
   _rejoinPanel: {fileID: 1581982815}
 --- !u!1 &592735881
 GameObject:
@@ -4898,6 +4899,8 @@ GameObject:
   - component: {fileID: 1581982816}
   - component: {fileID: 1581982818}
   - component: {fileID: 1581982817}
+  - component: {fileID: 1581982819}
+  - component: {fileID: 1581982820}
   m_Layer: 5
   m_Name: Rejoin Panel
   m_TagString: Untagged
@@ -4964,6 +4967,43 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1581982815}
   m_CullTransparentMesh: 1
+--- !u!223 &1581982819
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1581982815}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 2
+  m_TargetDisplay: 0
+--- !u!114 &1581982820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1581982815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d97f225544a124479a13b08a806b107, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SelectedOption: 0
+  Parent: {fileID: 0}
+  _panel: {fileID: 1581982815}
+  TransitionDuration: 0.5
 --- !u!1 &1592938204
 GameObject:
   m_ObjectHideFlags: 0
@@ -5195,6 +5235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SelectedOption: 0
   Parent: {fileID: 165781519}
+  _panel: {fileID: 1604387612}
   TransitionDuration: 0.5
 --- !u!114 &1604387615
 MonoBehaviour:
@@ -5264,7 +5305,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1610760103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5307,7 +5348,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!224 &1610760105
 RectTransform:
@@ -5529,7 +5570,7 @@ GameObject:
   - component: {fileID: 1704003142}
   - component: {fileID: 1704003141}
   m_Layer: 5
-  m_Name: Choose_Mode_Canvas
+  m_Name: Panels_Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6206,6 +6247,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SelectedOption: 0
   Parent: {fileID: 1222618430}
+  _panel: {fileID: 1990975853}
   TransitionDuration: 0.5
 --- !u!1 &2091182658
 GameObject:
