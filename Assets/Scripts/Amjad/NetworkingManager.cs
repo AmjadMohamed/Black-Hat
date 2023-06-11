@@ -61,11 +61,6 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.InRoom)
         {
             PhotonNetwork.LeaveRoom();
-            if (PhotonNetwork.NetworkClientState == ClientState.Joined)
-            {
-                PhotonNetwork.Disconnect();
-                PhotonNetwork.ConnectUsingSettings();
-            }
         }
     }
 

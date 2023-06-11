@@ -16,6 +16,8 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private GameObject _chooseModePanel;
     [SerializeField] private GameObject _waitingForPlayerPanel;
     [SerializeField] private GameObject _rejoinPanel;
+    [SerializeField] private TMP_InputField _ifRoomName;
+    [SerializeField] private Button _btnJoinOrCreateRoom;
 
     void Start()
     {
@@ -24,11 +26,6 @@ public class MainMenuManager : MonoBehaviour
             _welcomePanel.SetActive(false);
             _mainMenuPanel.SetActive(true);
         }
-    }
-
-    void Update()
-    {
-        print(PhotonNetwork.NetworkClientState);
     }
 
     public void CheckIfPlayerEnteredHisName()
@@ -40,6 +37,18 @@ public class MainMenuManager : MonoBehaviour
         else
         {
             _btnLetsGo.interactable = false;
+        }
+    }
+
+    public void CheckIfPlayerEnteredRoomName()
+    {
+        if (_ifRoomName.text.Length > 0)
+        {
+            _btnJoinOrCreateRoom.interactable = true;
+        }
+        else
+        {
+            _btnJoinOrCreateRoom.interactable = false;
         }
     }
 
