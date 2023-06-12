@@ -109,7 +109,10 @@ SpriteAtlas:
   - {fileID: 21300000, guid: f39d81aa4e401564eab389cc1c7a71fa, type: 3}
   - {fileID: 21300000, guid: 059a9aaad4af4044e9b5d4594a9fb5e2, type: 3}
   - {fileID: 21300000, guid: 42b00cbae44a879498309afbb7d37536, type: 3}
+  - {fileID: 21300000, guid: 106e86fa748e317408678398a3c4f22d, type: 3}
+  - {fileID: 21300000, guid: 61bc3f7b9ff80dd4b8a093ca35452322, type: 3}
   - {fileID: 21300000, guid: 502fa6bb77898c9479f955a1b123a088, type: 3}
+  - {fileID: 21300000, guid: 860c2aeba32b99c48a9e1b5304e03aac, type: 3}
   - {fileID: 21300000, guid: 1b3a930c86cb9414f964b28f8481dd77, type: 3}
   - {fileID: 21300000, guid: 0b0adc6c95186d64dabf07ebb7c3c02f, type: 3}
   - {fileID: 21300000, guid: 734f56bcbc0565f4585a64b3222fb661, type: 3}
@@ -176,7 +179,10 @@ SpriteAtlas:
   - NewHP
   - AD1
   - Options_Text
+  - Newest_Adware
+  - Newest_TrojanHorse
   - Welcome_Background
+  - Newest_Virus
   - Highlighted_Create_Room
   - TrojanHorseCard
   - AD3
