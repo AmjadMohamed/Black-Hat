@@ -116,26 +116,16 @@ public class TutorialManager : MonoBehaviour
                 case 2: // for teaching camera rotation
                     EnableTheRotationsTutorial();
                     break;
-                case 3: // for teaching camera panning
-                    //_currentIndex = 4;
-                    break;
-                case 4: // for teaching the player about the two side
-                    //EnableTheTwoSideTutorial();
-                   // if (_timeBetweenTutorialCoroutine == null)
-                   // {
-                     //   _timeBetweenTutorialCoroutine = StartCoroutine(FinishTheCurrentTutorial(2f));
-                  //  }
-                    break;
-                case 5: // for teaching Spawning the malware
+                case 4: // for teaching Spawning the malware
                     EnableTheMalwareSpawningTutorial();
                     break;
                 case 10: 
                     EnableTheAbilitySpawningTutorial();
                     break;;
-                case 6: // for teaching the player about tower Placement
+                case 5: // for teaching the player about tower Placement
                     EnableTheTowerPlacementTutorial();
                     break;
-                case 7: // for teaching the player about tower modifications
+                case 6: // for teaching the player about tower modifications
                     EnableTheTowerModificationsTutorial();
                     break;
             }
