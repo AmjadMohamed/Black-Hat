@@ -93,7 +93,7 @@ public class TouchInputManager : MonoBehaviour
             foreach (RaycastHit hit in hits)
             {
 
-                if (hit.transform.CompareTag("notBuildable") || hit.transform.CompareTag("Road"))
+                if (!hit.transform.CompareTag("Buildable"))
                 {
                     return false;
                 }

@@ -99,8 +99,32 @@ PrefabInstance:
       propertyPath: m_Name
       value: Geo_Building_3
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 22a23910cbde08445bd9bc3273f0d17c,
+        type: 3}
+      propertyPath: m_TagString
+      value: notBuildable
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22a23910cbde08445bd9bc3273f0d17c, type: 3}
+--- !u!1 &357285699962033226 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 22a23910cbde08445bd9bc3273f0d17c,
+    type: 3}
+  m_PrefabInstance: {fileID: 591164120151976219}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &3284820035212788570
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 357285699962033226}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 12.014702, y: 7.7401514, z: 21.364552}
+  m_Center: {x: -0.0000019073486, y: 3.8466525, z: -5.632745}
 --- !u!4 &1134491352845782768 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 22a23910cbde08445bd9bc3273f0d17c,
