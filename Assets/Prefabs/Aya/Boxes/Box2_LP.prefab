@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3551454019108520688}
   m_Layer: 0
   m_Name: Box2_LP
-  m_TagString: Untagged
+  m_TagString: Box
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,9 +43,10 @@ GameObject:
   - component: {fileID: 2943850154313146695}
   - component: {fileID: 2748820242005658416}
   - component: {fileID: 3666451340884061893}
+  - component: {fileID: 7746110503266692575}
   m_Layer: 0
   m_Name: Cube.032_LP
-  m_TagString: Untagged
+  m_TagString: notBuildable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -115,3 +116,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &7746110503266692575
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9090977383153886020}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 123.965096, y: 18.91445, z: 106.544846}
+  m_Center: {x: -0.000011444094, y: 9.335772, z: 0.000030517578}

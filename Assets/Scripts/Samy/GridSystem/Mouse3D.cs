@@ -1,13 +1,14 @@
+using CodeMonkey.Utils;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Tayx.Graphy.GraphyManager;
 
 public class Mouse3D : MonoBehaviour {
 
     public static Mouse3D Instance { get; private set; }
     public Camera MyCamera;
     [SerializeField] private LayerMask mouseColliderLayerMask = new LayerMask();
-    [SerializeField] private Transform RaycastStart;
     private void Awake() {
         Instance = this;
         MyCamera = Camera.main;
@@ -34,15 +35,14 @@ public class Mouse3D : MonoBehaviour {
 
             //print(hit.collider.tag + " v " + hit.collider.name);
             return hit.point;
-
         }
         else
         {
+            //UtilsClass.CreateWorldTextPopup("Cannot Build Here!", new Vector3(Input.mousePosition.x - 12, Input.mousePosition.y, Input.mousePosition.z));
             GridBuildingSystem3D.Instance.DeselectObjectType();
         }
         return hit.point;
     }
-
     public  bool CANBUILD()
     {
 
@@ -52,7 +52,8 @@ public class Mouse3D : MonoBehaviour {
 
         foreach (RaycastHit hit in hits)
         {
-            if (hit.transform.CompareTag("notBuildable")|| hit.transform.CompareTag("Road"))
+            print(hit);
+            if (!hit.transform.CompareTag("Buildable"))
             {
                 return false;
             }

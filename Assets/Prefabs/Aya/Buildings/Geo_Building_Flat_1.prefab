@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 6965716071290739163}
   - component: {fileID: 6270394181090055806}
   - component: {fileID: 8133532816351453876}
+  - component: {fileID: 4021319645772966329}
   m_Layer: 0
   m_Name: Geo_Building_Flat_1
-  m_TagString: Untagged
+  m_TagString: notBuildable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -83,3 +84,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &4021319645772966329
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7773460832174981985}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 13.949323, y: 11.192387, z: 6.2747164}
+  m_Center: {x: -0.96851635, y: 5.577561, z: -0.20791495}

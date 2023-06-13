@@ -99,6 +99,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Geo_Building_2
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8fe3940a8795963459e7afdaed265ba3,
+        type: 3}
+      propertyPath: m_TagString
+      value: notBuildable
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fe3940a8795963459e7afdaed265ba3, type: 3}
 --- !u!4 &1642620737947942208 stripped
@@ -107,3 +112,22 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1243410928459766443}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2125719327111112698 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 8fe3940a8795963459e7afdaed265ba3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1243410928459766443}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &5979236197250310126
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125719327111112698}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 15.189145, y: 9.8122835, z: 12.685729}
+  m_Center: {x: 0.0000009536743, y: 4.8891926, z: 1.7123518}
