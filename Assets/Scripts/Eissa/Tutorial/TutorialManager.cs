@@ -1,29 +1,35 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 
 public class TutorialManager : MonoBehaviour
 {
+    #region Tutorial Variables
+
     [Header("Tutorial Variables")]
     [SerializeField] private List<GameObject> popups = new List<GameObject>();
     public int _currentIndex = 0;
     private static TutorialManager _instance;
     public static TutorialManager Instance => _instance;
+    //private float _timeBetweenTutorials ;
+    private Coroutine _timeBetweenTutorialCoroutine;
+    private bool _closedTheTutorialPanel = false;
 
+    #endregion
+    
     #region Camera Variabels
     [Space]
     [Header("Camera Variables")]
     public Transform target;
 
-    private float rotationSpeed = 1f;
-    private float zoomSpeed = 1f;
-    private float minZoomDistance = 5f;
-    private float maxZoomDistance = 20f;
-    private float rotateDelay = 1f; // Delay in seconds before allowing rotation after zooming
-    private float minSwipeDistance = 1; // Minimum swipe distance required for rotation
+    [SerializeField] private float rotationSpeed = 1f;
+    [SerializeField] private float zoomSpeed = 1f;
+    [SerializeField] private float minZoomDistance = 5f;
+    [SerializeField] private float maxZoomDistance = 20f;
+    [SerializeField] private float rotateDelay = 1f; // Delay in seconds before allowing rotation after zooming
+    [SerializeField] private float minSwipeDistance = 1; // Minimum swipe distance required for rotation
+    [SerializeField] private GameObject _camera;
     private Camera camera;
 
     private Vector3 previousMousePosition;
@@ -32,24 +38,49 @@ public class TutorialManager : MonoBehaviour
     private bool shouldRotate;
     private bool isZoomed = false;
     private bool isRotate = false;
+    private bool isPanned = false;
 
     #endregion
 
-    #region Spwaning Malwares Variabels
+    #region Malwares 
 
-    [Space] [Header("Spwaning Malwares")] 
+    [Space] [Header("Malwares")] 
     [SerializeField] private List<GameObject> malware = new List<GameObject>();
-
-    public int malwareIndex = int.MaxValue;
-    public int currentMalwareCost;
+    [HideInInspector] public int malwareIndex = int.MaxValue;
+    [HideInInspector] public int currentMalwareCost;
+    private int spwanedMalwareNumber;
+    [SerializeField] private int requiredNumberOfMalware = 12;
+    [SerializeField] private GameObject malwareParent;
 
     #endregion
 
+    #region Energy Variabels
 
     [Space] [Header("Energy Variables")] 
     [SerializeField] private int maxEnergy;
-    private int _currentEnergy;
+    public int _currentEnergy;
 
+    #endregion
+
+    #region Tower and Tower Modifications Variables
+    [Space] [Header("Tower")]
+
+    [HideInInspector] public TowerModifications towerModifications;
+    [SerializeField] private GameObject towerManager;
+    [SerializeField] private GameObject towerParent;
+    [HideInInspector] public int towerCounter;
+    private int RequierdTowerNumber = 3;
+    #endregion
+
+    #region UI
+
+    [Space] [Header("UI")]
+    [SerializeField] private GameObject UI;
+    [SerializeField] private List<GameObject> TowerModificationsUI = new List<GameObject>();
+    [SerializeField] private GameObject attackerPanel;
+    [SerializeField] private GameObject defenderPanel;
+
+    #endregion
 
     private void Start()
     {
@@ -57,57 +88,155 @@ public class TutorialManager : MonoBehaviour
         {
             _instance = this;
         }
+
+      
         ResettingTheGameVariables();
         SwitchThePopupsOnAndOff();
+        
+        
         camera = Camera.main;
     }
 
     private void Update()
     {
-        switch (_currentIndex)
+        if (towerModifications != null)
         {
-            case 0: // for teaching camera zoom
-                if (!EventSystem.current.IsPointerOverGameObject())
-                {
-                    HandleCameraZoom();
-                    print("in case 0");
-                    print(isZoomed);
-                }
-                break;
-            case 1: // for teaching camera rotation
-                if (!EventSystem.current.IsPointerOverGameObject())
-                {
-                    HandleCameraRotation();
-                    HandleCameraZoom();
-                    print("in case 1");
-                }
-                break;
-            case 2: // for teaching camera panning
-                _currentIndex = 4;
-                print("in case 2");
-                break;
-            case 3: // for teaching the player about the two side
-                _currentIndex = 4;
-                print("in case 3");
-                break;
-            case 4: // for teaching Spawning the malwares
-                if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
-                {
-                    SpawnObject(Input.mousePosition);
-                }
-                else if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && !EventSystem.current.IsPointerOverGameObject())
-                {
-                    SpawnObject(Input.GetTouch(0).position);
-                }
-                print("in case 4");
-                break;
-            case 5: // for teaching the player about the two side
-                _currentIndex = 4;
-                print("in case 5");
-                break;
+            print(towerModifications.ModificationName);
         }
+        if (_closedTheTutorialPanel)
+        {
+            switch (_currentIndex)
+            {
+                case 0: // the Welcome massage
+                    
+                    break;
+                case 1: // for teaching camera zoom
+                    EnableTheZoomTutorial();
+                    break;
+                case 2: // for teaching camera rotation
+                    EnableTheRotationsTutorial();
+                    break;
+                case 3: // for teaching camera panning
+                    //_currentIndex = 4;
+                    break;
+                case 4: // for teaching the player about the two side
+                    //EnableTheTwoSideTutorial();
+                   // if (_timeBetweenTutorialCoroutine == null)
+                   // {
+                     //   _timeBetweenTutorialCoroutine = StartCoroutine(FinishTheCurrentTutorial(2f));
+                  //  }
+                    break;
+                case 5: // for teaching Spawning the malware
+                    EnableTheMalwareSpawningTutorial();
+                    break;
+                case 10: 
+                    EnableTheAbilitySpawningTutorial();
+                    break;;
+                case 6: // for teaching the player about tower Placement
+                    EnableTheTowerPlacementTutorial();
+                    break;
+                case 7: // for teaching the player about tower modifications
+                    EnableTheTowerModificationsTutorial();
+                    break;
+            }
+        }
+        
         print(_currentIndex);
+        
     }
+
+    #region Tutorial Functions
+
+    private void EnableTheZoomTutorial()
+    {
+        if (!EventSystem.current.IsPointerOverGameObject())
+        {
+            HandleCameraZoom();
+            print("in case 0");
+            print(isZoomed);
+        }
+    }
+    private void EnableTheRotationsTutorial()
+    {
+        if (!EventSystem.current.IsPointerOverGameObject())
+        {
+            HandleCameraRotation();
+        }
+    }
+    private void EnableTheZoomAndRotationsTutorial()
+    {
+        if (!EventSystem.current.IsPointerOverGameObject())
+        {
+            HandleCameraRotation();
+            HandleCameraZoom();
+        }
+    }
+
+    private void EnableTheMalwareSpawningTutorial()
+    {
+        UI.SetActive(true);
+        towerManager.SetActive(false);
+        defenderPanel.SetActive(false);
+        attackerPanel.SetActive(true);
+
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+        {
+            SpawnObject(Input.mousePosition);
+        }
+        else if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && !EventSystem.current.IsPointerOverGameObject())
+        {
+            SpawnObject(Input.GetTouch(0).position);
+        }
+
+        EnableTheZoomAndRotationsTutorial();
+    }
+    private void EnableTheTwoSideTutorial()
+    {
+        if (!EventSystem.current.IsPointerOverGameObject())
+        {
+            HandleCameraRotation();
+            HandleCameraZoom();
+        }
+        EnableTheZoomAndRotationsTutorial();
+    }
+
+    private void EnableTheTowerPlacementTutorial()
+    {
+        UI.SetActive(true);
+        attackerPanel.SetActive(false);
+        defenderPanel.SetActive(true);
+        towerManager.SetActive(true);
+        EnableTheZoomAndRotationsTutorial();
+        if (towerCounter > RequierdTowerNumber)
+        {
+            if (_timeBetweenTutorialCoroutine == null)
+            {
+                _timeBetweenTutorialCoroutine = StartCoroutine(FinishTheCurrentTutorial(2f));
+            }
+        }
+
+    }
+
+    private void EnableTheTowerModificationsTutorial()
+    {
+        UI.SetActive(true);
+        attackerPanel.SetActive(false);
+        SwitchingTheModificationCardUI(true);
+        defenderPanel.SetActive(true);
+        towerManager.SetActive(true);
+
+        GetInputForTowerModifications();
+        EnableTheZoomAndRotationsTutorial();
+
+    }
+
+    private void EnableTheAbilitySpawningTutorial()
+    {
+       
+    }
+
+    #endregion
+    
 
     public void SwitchThePopupsOnAndOff()
     {
@@ -124,7 +253,20 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-    #region camera functions
+    public void ClosedTheTutorialPanelButton()
+    {
+        _closedTheTutorialPanel = true;
+    }
+
+    public void NextTutorial()
+    {
+        if (_timeBetweenTutorialCoroutine == null)
+        {
+            _timeBetweenTutorialCoroutine = StartCoroutine(FinishTheCurrentTutorial(2f));
+        }
+    }
+
+    #region Camera Functions
 
     private void HandleCameraRotation()
     {
@@ -157,12 +299,13 @@ public class TutorialManager : MonoBehaviour
             if (deltaMousePosition.magnitude > minSwipeDistance)
             {
                 // Rotate camera around the target
-                transform.RotateAround(target.position, Vector3.up, deltaMousePosition.x * rotationSpeed);
+                camera.transform.RotateAround(target.position, Vector3.up, deltaMousePosition.x * rotationSpeed);
                 //transform.RotateAround(target.position, transform.right, -deltaMousePosition.y * rotationSpeed);
                 if (!isRotate)
                 {
-                    StartCoroutine(FinishTheCurrentTutorial());
+                    StartCoroutine(FinishTheCurrentTutorial(2f));
                     isRotate = true;
+                    print("rotate");
                 }
             }
         }
@@ -181,7 +324,7 @@ public class TutorialManager : MonoBehaviour
         {
             if (isZoomed == false)
             {
-                StartCoroutine(FinishTheCurrentTutorial());
+                StartCoroutine(FinishTheCurrentTutorial(2f));
                 isZoomed = true;
             }
 
@@ -239,23 +382,21 @@ public class TutorialManager : MonoBehaviour
 
     private void ZoomCamera(float zoomInput)
     {
-        Vector3 cameraToTarget = target.position - transform.position;
+        Vector3 cameraToTarget = target.position - camera.transform.position;
         float currentDistance = cameraToTarget.magnitude;
 
         float newDistance = currentDistance + zoomInput * zoomSpeed;
         newDistance = Mathf.Clamp(newDistance, minZoomDistance, maxZoomDistance);
 
         Vector3 newCameraPosition = target.position - cameraToTarget.normalized * newDistance;
-        transform.position = newCameraPosition;
+        camera.transform.position = newCameraPosition;
     }
 
     #endregion
 
-    #region spawning malwares functions
-
+    #region Spawning Malwares Functions
     void SpawnObject(Vector3 position)
     {
-            
         Ray ray = camera.ScreenPointToRay(position);
         RaycastHit hit;
 
@@ -266,26 +407,114 @@ public class TutorialManager : MonoBehaviour
                 Vector3 spawnPosition = hit.point;
                 spawnPosition.y += .3f;
                 print("hit road");
-                if (malwareIndex < malware.Count &&currentMalwareCost <= _currentEnergy)
+                if (malwareIndex < malware.Count && currentMalwareCost <= _currentEnergy)
                 {
-                    Instantiate(malware[malwareIndex], spawnPosition, Quaternion.identity);
+                    Instantiate(malware[malwareIndex], spawnPosition, Quaternion.identity,malwareParent.transform);
                     _currentEnergy -= currentMalwareCost;
+                    CheckTheProgressOfSpawningTutorial();
                 }
             }
         }
     }
+
+    private void DestroyAllTheSpawnedMalware()
+    {
+        foreach (Transform malwareInstance in malwareParent.transform)
+        {
+            Destroy(malwareInstance.gameObject);
+        }
+    }
+
+    private void CheckTheProgressOfSpawningTutorial()
+    {
+        spwanedMalwareNumber++;
+        if (spwanedMalwareNumber >= requiredNumberOfMalware)
+        {
+            if (_timeBetweenTutorialCoroutine == null)
+            {
+                print("Spwaned all the malware");
+                _timeBetweenTutorialCoroutine = StartCoroutine(FinishTheCurrentTutorial(3f));
+            }
+        }
+    }
+    public void SpawnMalwareButtons(int MalwareIndex)
+    {
+        malwareIndex = MalwareIndex;
+        var malwareScript = malware[malwareIndex].GetComponent<MalwareTutorial>();
+        currentMalwareCost = malwareScript.EnergyCost;
+    }
     #endregion
 
+    #region Tower Modifications Functions
+
+    public void GetInputForTowerModifications()
+    {
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+        {
+            ApplyModificationToTower(Input.mousePosition);
+        }
+        else if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && !EventSystem.current.IsPointerOverGameObject())
+        {
+            ApplyModificationToTower(Input.GetTouch(0).position);
+        }
+    }
+
+    void ApplyModificationToTower(Vector3 position)
+    {
+        Ray ray = camera.ScreenPointToRay(position);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            if (hit.transform.CompareTag("Tower") && towerModifications != null)
+            {
+                if (towerModifications.EnergyCost <= _currentEnergy)
+                {
+                    hit.transform.GetComponent<TowerTutorial>().ModifyTower(towerModifications);
+                    _currentEnergy -= towerModifications.EnergyCost;
+                }
+                
+            }
+        }
+    }
+
+    private void SwitchingTheModificationCardUI(bool state)
+    {
+        for (int i = 0; i < TowerModificationsUI.Count; i++)
+        {
+            TowerModificationsUI[i].SetActive(state);
+        }
+    }
+    private void DestroyAllTheSpawnedTowers()
+    {
+        foreach (Transform towerInstance in towerParent.transform)
+        {
+            Destroy(towerInstance.gameObject);
+        }
+    }
+
+    #endregion
     void ResettingTheGameVariables()
     {
+        UI.SetActive(false);
+        SwitchingTheModificationCardUI(false);
+        towerManager.SetActive(false);
+        defenderPanel.SetActive(false);
+        attackerPanel.SetActive(false);
+        towerCounter = 0;
+        spwanedMalwareNumber = 0;
+        DestroyAllTheSpawnedMalware();
         _currentEnergy = maxEnergy;
         malwareIndex = int.MaxValue;
     }
 
-    IEnumerator FinishTheCurrentTutorial()
+    IEnumerator FinishTheCurrentTutorial(float _timeBetweenTutorials)
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(_timeBetweenTutorials);
         _currentIndex++;
         SwitchThePopupsOnAndOff();
+        ResettingTheGameVariables();
+        _timeBetweenTutorialCoroutine = null;
+        _closedTheTutorialPanel = false;
     }
 }

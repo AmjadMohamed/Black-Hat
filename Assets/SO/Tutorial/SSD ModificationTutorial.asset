@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa4eb824681a45fbac5d8006d83a12cb, type: 3}
+  m_Name: SSD ModificationTutorial
+  m_EditorClassIdentifier: 
+  description: 
+  ModificationName: SSD Modification
+  maxHealth: 250
+  EnergyCost: 450
+  damage: 20
+  range: 6
+  attackSpeed: 3
+  bulletPrefab: {fileID: 554714879551252669, guid: e7a08ec1180d78c46b8977aa54b82f40,
+    type: 3}
+  towerIcon: {fileID: 7939077446957297283, guid: e61eb955cb337b24e87d6a1be53eb8f3,
+    type: 3}
+  ShootingSFX: {fileID: 8300000, guid: 4469103c3769d324794a2c74aad5d0d8, type: 3}
+  SpawnSFX: {fileID: 0}
