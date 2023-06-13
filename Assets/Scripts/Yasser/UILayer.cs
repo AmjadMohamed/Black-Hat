@@ -8,8 +8,8 @@ public class UILayer : MonoBehaviour
 {
     #region Serialized Fields
 
-    [SerializeField] private GameObject attackerUI;
-    [SerializeField] private GameObject defenderUI;
+    [SerializeField] private Canvas attackerUI;
+    [SerializeField] private Canvas defenderUI;
     [SerializeField] private GameObject switchingSidesPanel;
     [SerializeField] private TMP_Text roundNumText;
     [SerializeField] private TMP_Text attackerDefenderTurnText;
@@ -55,21 +55,21 @@ public class UILayer : MonoBehaviour
 
     public void LoadPlayerUI(MatchManager.Side side)
     {
-        if (attackerUI.activeInHierarchy || defenderUI.activeInHierarchy)
+        if (attackerUI.enabled || defenderUI.enabled)
         {
-            attackerUI.SetActive(false);
-            defenderUI.SetActive(false);
+            attackerUI.enabled = false;
+            defenderUI.enabled = false;
         }
 
         switch (side)
         {
             case MatchManager.Side.Attacker:
-                defenderUI.SetActive(false);
-                attackerUI.SetActive(true);
+                defenderUI.enabled = false;
+                attackerUI.enabled = true;
                 break;
             case MatchManager.Side.Defender:
-                attackerUI.SetActive(false);
-                defenderUI.SetActive(true);
+                attackerUI.enabled = false;
+                defenderUI.enabled = true;
                 break;
         }
     }
