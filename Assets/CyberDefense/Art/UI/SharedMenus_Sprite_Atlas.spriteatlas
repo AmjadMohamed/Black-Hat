@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SharedMenus_Sprite_Atlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: Android
+      m_MaxTextureSize: 1024
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 50
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: d9e85ac6b051bc649a67eab5bc3bc0fc, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 3c005940eed7b33439f3d598b3614e7a, type: 3}
+  - {fileID: 21300000, guid: f3534028e4337954098e42cf5d90c907, type: 3}
+  - {fileID: 21300000, guid: 27339269de5afc14f9aa2bcc547b8fc5, type: 3}
+  - {fileID: 21300000, guid: bd74895d7fcb90140b7ba4e4bb2a06de, type: 3}
+  - {fileID: 21300000, guid: 8adebdbe1c8f77345b1cd58e00e0f6ab, type: 3}
+  - {fileID: 21300000, guid: bdf546ce7ef991743909d9cf33444bff, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Button
+  - DisabledButton
+  - Exit
+  - Background
+  - Button!
+  - Highlighted_Button
+  m_RenderDataMap: {}
+  m_Tag: SharedMenus_Sprite_Atlas
+  m_IsVariant: 0

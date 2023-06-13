@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Menus_Sprite_Atlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: Android
+      m_MaxTextureSize: 1024
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 50
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 34b94372d0f0e50479d99b856fd86d0f, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 63b6ca70fa38c6248a0a3b953ac6bab3, type: 3}
+  - {fileID: 21300000, guid: 6e02c9e1388e50f4fbfb602acf96fe04, type: 3}
+  - {fileID: 21300000, guid: 2dd817969e7ad2749a249bc8cb0fadb3, type: 3}
+  - {fileID: 21300000, guid: 0e97526799293e446a9a0a0db1b2f529, type: 3}
+  - {fileID: 21300000, guid: be0072a7c58993e4d86463d046f55d1d, type: 3}
+  - {fileID: 21300000, guid: fba0ee0abbbc25e4b8eecc7e75096a8b, type: 3}
+  - {fileID: 21300000, guid: 42b00cbae44a879498309afbb7d37536, type: 3}
+  - {fileID: 21300000, guid: 502fa6bb77898c9479f955a1b123a088, type: 3}
+  - {fileID: 21300000, guid: 943956fe84a85a44dbbc2086c5ff9109, type: 3}
+  - {fileID: 21300000, guid: 248a354f004f4ca4aa27bdfa4f67d540, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Options UI
+  - Exit_Text
+  - Cofirm_Text
+  - Blurred BG
+  - Play_Text
+  - Hard Edge Stylized Lobby UI
+  - Options_Text
+  - Welcome_Background
+  - Text_Field_Blue
+  - Main_Menu_Background
+  m_RenderDataMap: {}
+  m_Tag: Menus_Sprite_Atlas
+  m_IsVariant: 0

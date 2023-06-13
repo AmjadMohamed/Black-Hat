@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DynamicHUD_Defender_Sprite_Atlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: Android
+      m_MaxTextureSize: 512
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 50
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 6b8d29ff5158d684489370aab1ecdbb2, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 46fe54801f3546e409f866c2c84e5ba1, type: 3}
+  - {fileID: 21300000, guid: 8e10f541753478c458401e4ec04beb16, type: 3}
+  - {fileID: 21300000, guid: 1d79011937b28654e94e9e8b529adac9, type: 3}
+  - {fileID: 21300000, guid: 67b4eda99814d6c4894af6bfaa2250c3, type: 3}
+  - {fileID: 21300000, guid: 98758b0fd7c1c0c4684ce8a51be270aa, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - DeepScanner
+  - Tower
+  - Update
+  - Anti_Malware
+  - Firewall
+  m_RenderDataMap: {}
+  m_Tag: DynamicHUD_Defender_Sprite_Atlas
+  m_IsVariant: 0
