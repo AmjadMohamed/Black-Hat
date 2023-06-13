@@ -21,7 +21,7 @@ MonoBehaviour:
   Shield: 110
   EnergyCost: 100
   Range: 5
-  IsRanged: 0
+  IsRanged: 1
   FireRate: 1
   SpawnSFX: {fileID: 8300000, guid: 1be03f51eba87c94ea45e22a59eb0d11, type: 3}
   WalkingSFX: {fileID: 0}

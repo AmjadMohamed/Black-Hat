@@ -87,7 +87,6 @@ public class MainMenuManager : MonoBehaviour
 
         if (PhotonNetwork.NetworkClientState == ClientState.ConnectedToMasterServer)
         {
-            print("SOSK");
             NetworkingManager.Instance.QuickMatch();
             _waitingForPlayerPanel.SetActive(true);
         }
