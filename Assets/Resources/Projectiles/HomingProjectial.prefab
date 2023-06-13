@@ -19846,13 +19846,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 998b5cf895994b6cb4eea41543c3e6b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  positionCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  projectileSpeed: 10
+  projectileSpeed: 15
 --- !u!54 &-2575682286039195986
 Rigidbody:
   m_ObjectHideFlags: 0
