@@ -25,8 +25,8 @@ public class UILayer : MonoBehaviour
     public TextMeshProUGUI p1NameText;
     public TextMeshProUGUI p2WinsText;
     public TextMeshProUGUI p2NameText;
-    public TMP_Text winnerText;
-    public GameObject GameEndedPanel;
+    public GameObject VictoryPanel;
+    public GameObject DefeatPanel;
 
     public static UILayer Instance { get; private set; }
 
@@ -94,12 +94,12 @@ public class UILayer : MonoBehaviour
 
     public void ReturnToMainMenu()
     {
-        if (PhotonNetwork.IsConnected)
+        if (PhotonNetwork.IsConnectedAndReady)
         {
+            SceneManager.LoadSceneAsync(MatchManager.Instance.MAIN_MENU_SCENE_NAME);
             PhotonNetwork.Disconnect();
+            Destroy(gameObject);
         }
-        SceneManager.LoadScene(0);
-        Destroy(gameObject, 1);
     }
 
     public void ShowAds()
@@ -119,6 +119,11 @@ public class UILayer : MonoBehaviour
         }
     }
 
+    public void EnableEndgamePanel(GameObject endGamePanel)
+    {
+        StartCoroutine(EnableGameEndedPanel(endGamePanel));
+    }
+
     #endregion
 
     #region Private Methods
@@ -130,6 +135,14 @@ public class UILayer : MonoBehaviour
         yield return new WaitForSeconds(3.0f);
         matchDisconnetedPanel.GetComponent<PanelsDotween>().HidePanel();
         Destroy(gameObject, .5f);
+    }
+
+    private IEnumerator EnableGameEndedPanel(GameObject endgamePanel)
+    {
+        endgamePanel.SetActive(true);
+        yield return new WaitForSeconds(3.0f);
+        endgamePanel.SetActive(false);
+        ReturnToMainMenu();
     }
 
     #endregion

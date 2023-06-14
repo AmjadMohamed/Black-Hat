@@ -70,6 +70,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 5fd63e08716aeb146ad9e4f079b8a88c, type: 3}
   - {fileID: 21300000, guid: f0cdfb89647e97a4a93783f208b31e8e, type: 3}
   - {fileID: 21300000, guid: 7a237999d61b8d240b5a37a89ff322c7, type: 3}
+  - {fileID: 21300000, guid: d1ce549ad16aeaf488044aec419f1173, type: 3}
   - {fileID: 21300000, guid: db2f5b1df26a6de4a998df42de831a6c, type: 3}
   - {fileID: 21300000, guid: 8ce244fdb32a048478cc68e054999f44, type: 3}
   - {fileID: 21300000, guid: f65f1efd7ce8c71429f36cbf02b11fa6, type: 3}
@@ -83,6 +84,7 @@ SpriteAtlas:
   - Pause UI
   - Layer 97
   - Click here
+  - Defeat
   - BMX_
   - X button
   - "Run as fast as you can and don\u2019t look back_"

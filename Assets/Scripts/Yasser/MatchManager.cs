@@ -1,6 +1,7 @@
 using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Random = UnityEngine.Random;
@@ -86,6 +87,11 @@ public class MatchManager : MonoBehaviourPunCallbacks
             {
                 DisconnectPlayersRaiseEvent();
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            EndRound(true);
         }
     }
 
@@ -260,30 +266,21 @@ public class MatchManager : MonoBehaviourPunCallbacks
 
     private void StateWinner()
     {
-        for (int i = 0; i < PhotonNetwork.PlayerList.Length;)
-        {
-            if ((int)PhotonNetwork.PlayerList[0].CustomProperties[CustomKeys.WINS] >
-                (int)PhotonNetwork.PlayerList[1].CustomProperties[CustomKeys.WINS])
-            {
-                UILayer.Instance.GameEndedPanel.SetActive(true);
-                UILayer.Instance.winnerText.text = $"<color=yellow>{(string)PhotonNetwork.PlayerList[0].CustomProperties[CustomKeys.User_Name]}</color> Won The Game";
-                SetPlayerDisconnected(false);
-                PhotonNetwork.Disconnect();
-            }
-            else if ((int)PhotonNetwork.PlayerList[0].CustomProperties[CustomKeys.WINS] <
-                     (int)PhotonNetwork.PlayerList[1].CustomProperties[CustomKeys.WINS])
-            {
-                UILayer.Instance.GameEndedPanel.SetActive(true);
-                UILayer.Instance.winnerText.text = $"<color=yellow>{(string)PhotonNetwork.PlayerList[1].CustomProperties[CustomKeys.User_Name]}</color> Won The Game";
-                SetPlayerDisconnected(false);
-                PhotonNetwork.Disconnect();
-            }
+        SetPlayerDisconnected(false);
 
-            break;
+        if ((int)PhotonNetwork.LocalPlayer.CustomProperties[CustomKeys.WINS] >
+            (int)PhotonNetwork.PlayerListOthers[0].CustomProperties[CustomKeys.WINS])
+        {
+            UILayer.Instance.EnableEndgamePanel(UILayer.Instance.VictoryPanel);
         }
+        else if ((int)PhotonNetwork.LocalPlayer.CustomProperties[CustomKeys.WINS] <
+                 (int)PhotonNetwork.PlayerListOthers[0].CustomProperties[CustomKeys.WINS])
+        {
+            UILayer.Instance.EnableEndgamePanel(UILayer.Instance.DefeatPanel);
+        }
+
     }
 
-    // All
     private void SwitchSides(EventData obj)
     {
         if (obj.Code == RoundEndedEventCode)
@@ -292,12 +289,18 @@ public class MatchManager : MonoBehaviourPunCallbacks
 
             if (currentRound >= WINS_REQUIRED)
             {
-                StateWinner();
+                if ((int)PhotonNetwork.LocalPlayer.CustomProperties[CustomKeys.WINS] !=
+                    (int)PhotonNetwork.PlayerListOthers[0].CustomProperties[CustomKeys.WINS])
+                {
+                    StateWinner();
+                    return;
+                }
             }
 
             StartCoroutine(UILayer.Instance.EnableSwitchingSidesPanel(1));
 
             ResetRound();
+            Debug.Log("Came here");
             StartMatch();
         }
     }
