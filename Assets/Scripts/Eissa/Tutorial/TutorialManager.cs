@@ -164,10 +164,16 @@ public class TutorialManager : MonoBehaviour
 
     private void EnableTheMalwareSpawningTutorial()
     {
-        UI.SetActive(true);
+        if (!UI.activeInHierarchy)
+        {
+            UI.SetActive(true);
+        }
         towerManager.SetActive(false);
         defenderPanel.SetActive(false);
-        attackerPanel.SetActive(true);
+        if (!attackerPanel.activeInHierarchy)
+        {
+            attackerPanel.SetActive(true);
+        }
 
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
@@ -192,10 +198,17 @@ public class TutorialManager : MonoBehaviour
 
     private void EnableTheTowerPlacementTutorial()
     {
-        UI.SetActive(true);
+        if (!UI.activeInHierarchy)
+        {
+            UI.SetActive(true);
+
+        }
         attackerPanel.SetActive(false);
-        defenderPanel.SetActive(true);
-        towerManager.SetActive(true);
+        if (!defenderPanel.activeInHierarchy)
+        {
+            defenderPanel.SetActive(true);
+            towerManager.SetActive(true);
+        }
         EnableTheZoomAndRotationsTutorial();
         if (towerCounter > RequierdTowerNumber)
         {
@@ -209,15 +222,25 @@ public class TutorialManager : MonoBehaviour
 
     private void EnableTheTowerModificationsTutorial()
     {
-        UI.SetActive(true);
-        attackerPanel.SetActive(false);
-        SwitchingTheModificationCardUI(true);
-        defenderPanel.SetActive(true);
-        towerManager.SetActive(true);
+        if (!UI.activeInHierarchy)
+        {
+            UI.SetActive(true);
 
-        GetInputForTowerModifications();
+        }
+        attackerPanel.SetActive(false);
+        if (!defenderPanel.activeInHierarchy)
+        {
+            defenderPanel.SetActive(true);
+            towerManager.SetActive(true);
+        }
+
+        if (!TowerModificationsUI[0].activeInHierarchy)
+        {
+            SwitchingTheModificationCardUI(true);
+        }
+
         EnableTheZoomAndRotationsTutorial();
-        
+        GetInputForTowerModifications();
 
     }
 
@@ -463,8 +486,9 @@ public class TutorialManager : MonoBehaviour
                 {
                     hit.transform.GetComponent<TowerTutorial>().ModifyTower(towerModifications);
                     _currentEnergy -= towerModifications.EnergyCost;
+                    towerModifications = null;
                 }
-                
+                towerModifications = null;
             }
         }
     }
