@@ -73,10 +73,10 @@ public class PanelsDotween : MonoBehaviour
         ShowPanel();
     }
 
-    void OnDisable()
-    {
-        HidePanel();
-    }
+    //void OnDisable()
+    //{
+    //    HidePanel();
+    //}
 
     public void ShowPanel()
     {
