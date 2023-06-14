@@ -6740,7 +6740,7 @@ MonoBehaviour:
   roundTime: 150
   currentRound: 1
   MAIN_MENU_SCENE_NAME: Main Menu 1
-  GAMEPLAY_SCENE_NAME: Gameplay Scene1
+  GAMEPLAY_SCENE_NAME: Gameplay Scene1_aya_edit
 --- !u!4 &2133242351
 Transform:
   m_ObjectHideFlags: 0
