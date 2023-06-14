@@ -197,4 +197,25 @@ public class GridBuildingSystem3D : MonoBehaviour
         placedObjectTypeSO = placedObjectTypeSOList[TypeNum];
         RefreshSelectedObjectType();
     }
+
+
+    public void deleteObjectFromGrid(Vector3 position)
+    {
+        if (grid.GetGridObject(position) != null)
+        {
+            // Valid Grid Position
+            PlacedObject_Done placedObject = grid.GetGridObject(position).GetPlacedObject();
+            if (placedObject != null)
+            {
+                // Demolish
+                //placedObject.DestroySelf();
+
+                List<Vector2Int> gridPositionList = placedObject.GetGridPositionList();
+                foreach (Vector2Int gridPosition in gridPositionList)
+                {
+                    grid.GetGridObject(gridPosition.x, gridPosition.y).ClearPlacedObject();
+                }
+            }
+        }
+    }
 }
