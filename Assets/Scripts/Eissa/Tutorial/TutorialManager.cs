@@ -217,6 +217,7 @@ public class TutorialManager : MonoBehaviour
 
         GetInputForTowerModifications();
         EnableTheZoomAndRotationsTutorial();
+        
 
     }
 
