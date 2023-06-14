@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [RequireComponent(typeof(LineRenderer))]
 public class Range : MonoBehaviour
@@ -17,7 +16,7 @@ public class Range : MonoBehaviour
     void Start()
     {
         line = gameObject.GetComponent<LineRenderer>();
-        line.SetVertexCount(segments + 1);
+        line.positionCount = segments + 1;
         line.useWorldSpace = false;
         CreatePoints();
     }

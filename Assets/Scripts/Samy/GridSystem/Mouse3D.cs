@@ -1,8 +1,4 @@
-using CodeMonkey.Utils;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static Tayx.Graphy.GraphyManager;
 
 public class Mouse3D : MonoBehaviour {
 
@@ -27,8 +23,6 @@ public class Mouse3D : MonoBehaviour {
         Ray ray = MyCamera.ScreenPointToRay(Input.mousePosition);
         //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition - new Vector3(Screen.width / 2f, Screen.height / 2f, 0));
 
-
-        bool found = false;
         RaycastHit hit;
         if (Physics.Raycast(ray,out hit, 999f, mouseColliderLayerMask))
         {

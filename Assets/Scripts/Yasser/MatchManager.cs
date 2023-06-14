@@ -1,12 +1,9 @@
-using System.Collections.Generic;
 using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Random = UnityEngine.Random;
-using UnityEngine.SceneManagement;
 
 public class MatchManager : MonoBehaviourPunCallbacks
 {

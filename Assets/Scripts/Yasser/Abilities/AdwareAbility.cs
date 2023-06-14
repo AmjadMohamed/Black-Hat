@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class AdwareAbility : GenericAbility, IAbility
 {
-    void Update()
+    public override void Update()
     {
         base.Update();
         if (MalwaresManager.Instance.AdwareCount >= numberOfMalwareNeededToUse)

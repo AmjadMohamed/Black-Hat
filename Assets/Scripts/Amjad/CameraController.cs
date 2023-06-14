@@ -10,7 +10,6 @@ public class CameraController : MonoBehaviour
     public float maxZoomDistance = 20f;
     public float rotateDelay = 1f; // Delay in seconds before allowing rotation after zooming
     public float minSwipeDistance = 1; // Minimum swipe distance required for rotation
-    public Camera camera;
 
     private Vector3 previousMousePosition;
     private bool isDragging;

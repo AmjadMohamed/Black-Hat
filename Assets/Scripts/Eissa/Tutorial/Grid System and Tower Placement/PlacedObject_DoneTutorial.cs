@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine;
 
-    public class PlacedObject_DoneTutorial : MonoBehaviour
+public class PlacedObject_DoneTutorial : MonoBehaviour
     {
         public static PlacedObject_DoneTutorial Create(Vector3 worldPosition, Vector2Int origin, PlacedObjectTypeSO.Dir dir, PlacedObjectTypeSO placedObjectTypeSO) {
             GameObject placedObjectTransform = Instantiate(placedObjectTypeSO.prefab.gameObject, worldPosition, Quaternion.Euler(0, 0, 0),GridBuildingSystem3DTutorial.Instance.towerParent.transform);
