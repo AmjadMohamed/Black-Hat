@@ -40,6 +40,7 @@ public class Mouse3D : MonoBehaviour {
         {
             //UtilsClass.CreateWorldTextPopup("Cannot Build Here!", new Vector3(Input.mousePosition.x - 12, Input.mousePosition.y, Input.mousePosition.z));
             GridBuildingSystem3D.Instance.DeselectObjectType();
+            transform.position =new Vector3(0,0,0);
         }
         return hit.point;
     }

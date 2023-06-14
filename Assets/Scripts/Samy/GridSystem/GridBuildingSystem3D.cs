@@ -23,8 +23,10 @@ public class GridBuildingSystem3D : MonoBehaviour
     [SerializeField] private int gridHeight;
     [SerializeField] private float cellSize;
     [SerializeField] TowerModifications towerBase;
+    bool RayCastCheck;
 
-    int counter =0;
+
+    public int counter =0;
     private void Awake() {
         Instance = this;
         MyCamera = Camera.main;
@@ -86,6 +88,7 @@ public class GridBuildingSystem3D : MonoBehaviour
             {
                 if (TouchInputManager.Instance.HasTouchInput())
                 {
+                    RayCastCheck = TouchInputManager.Instance.CANBUILD();
                     mousePosition = TouchInputManager.Instance.GetTouchWorldPosition();
                     if(counter==0)
                     {
@@ -96,6 +99,8 @@ public class GridBuildingSystem3D : MonoBehaviour
                 else
                 {
                     mousePosition = Mouse3D.Instance.GetMouseWorldPosition();
+                    RayCastCheck = Mouse3D.Instance.CANBUILD();
+
                 }
 
                 grid.GetXZ(mousePosition, out int x, out int z);
@@ -113,16 +118,7 @@ public class GridBuildingSystem3D : MonoBehaviour
                         break;
                     }
                 }
-                bool RayCastCheck ;
-                
-                if (TouchInputManager.Instance.HasTouchInput())
-                {
-                    RayCastCheck = TouchInputManager.Instance.CANBUILD();
-                }
-                else
-                {
-                    RayCastCheck = Mouse3D.Instance.CANBUILD();
-                }
+
                 if (canBuild && RayCastCheck)
                 {
                     Vector2Int rotationOffset = Vector2Int.zero;
@@ -146,6 +142,8 @@ public class GridBuildingSystem3D : MonoBehaviour
                     // Cannot build here
                     UtilsClass.CreateWorldTextPopup("Cannot Build Here!", new Vector3(mousePosition.x-12, mousePosition.y, mousePosition.z));
                     DeselectObjectType();
+                    counter = 0;
+
                 }
             }
         }
