@@ -59,6 +59,7 @@ public class Tower : MonoBehaviourPun
         if (_currentHealth <= 0)
         {
             Destroy(gameObject);
+            GridBuildingSystem3D.Instance.deleteObjectFromGrid(this.transform.position);
         }
     }
     
