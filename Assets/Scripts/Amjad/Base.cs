@@ -27,7 +27,7 @@ public class Base : MonoBehaviourPunCallbacks
 
     private void UpdateHealthBar()
     {
-        float healthPercentage  = (_currentHealth / _maxHealth) * 100;
+        float healthPercentage = (_currentHealth / _maxHealth) * 100;
         DOTween.To(() => healthBarSlider.value, x => healthBarSlider.value = x, healthPercentage / 100f, 1f);
         float shieldDissolve = shieldMaterial.GetFloat("_DISSOLVE_ctrl");
         shieldDissolve = healthPercentage / 100;
@@ -36,7 +36,7 @@ public class Base : MonoBehaviourPunCallbacks
 
     void CheckBaseHealth()
     {
-        if (_currentHealth <= 0)    
+        if (_currentHealth <= 0)
         {
             MatchManager.Instance.EndRound(true);
             _currentHealth = _maxHealth;

@@ -4,10 +4,6 @@ public class SoundManager : MonoBehaviour
 {
     private static SoundManager _instance;
 
-    // Public Variables
-    public AudioClip MainMenuMusic;
-    public AudioClip GameplayMusic;
-
     // Private Variables
     private AudioSource _audioSource;
 
@@ -24,7 +20,6 @@ public class SoundManager : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
         _audioSource = GetComponent<AudioSource>();
-        PlayBackgroundMusic(GameplayMusic, .1f);
     }
 
     public void PlaySoundEffect(AudioClip SFX, float volume = 1f)
