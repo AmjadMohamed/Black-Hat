@@ -1,10 +1,12 @@
+using ExitGames.Client.Photon;
 using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class UILayer : MonoBehaviour
+public class UILayer : MonoBehaviourPunCallbacks
 {
     #region Serialized Fields
 
@@ -47,6 +49,18 @@ public class UILayer : MonoBehaviour
         }
 
         StartCoroutine(EnableSwitchingSidesPanel(0));
+    }
+
+    public override void OnEnable()
+    {
+        base.OnEnable();
+        PhotonNetwork.NetworkingClient.EventReceived += EnableEndgamePanel;
+    }
+
+    public override void OnDisable()
+    {
+        base.OnDisable();
+        PhotonNetwork.NetworkingClient.EventReceived -= EnableEndgamePanel;
     }
 
     #endregion
@@ -92,14 +106,14 @@ public class UILayer : MonoBehaviour
         switchingSidesPanel.GetComponent<PanelsDotween>().HidePanel();
     }
 
-    public void ReturnToMainMenu()
+    private void ReturnToMainMenu()
     {
-        if (PhotonNetwork.IsConnectedAndReady)
+        if (PhotonNetwork.IsMasterClient)
         {
-            SceneManager.LoadSceneAsync(MatchManager.Instance.MAIN_MENU_SCENE_NAME);
-            PhotonNetwork.Disconnect();
-            Destroy(gameObject);
+            PhotonNetwork.LoadLevel(MatchManager.Instance.MAIN_MENU_SCENE_NAME);
+            PhotonNetwork.LeaveRoom();
         }
+        Destroy(gameObject);
     }
 
     public void ShowAds()
@@ -119,9 +133,39 @@ public class UILayer : MonoBehaviour
         }
     }
 
-    public void EnableEndgamePanel(GameObject endGamePanel)
+    public void EnableEndgamePanelRaiseEvent()
     {
-        StartCoroutine(EnableGameEndedPanel(endGamePanel));
+        if (PhotonNetwork.IsMasterClient)
+        {
+            RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+            PhotonNetwork.RaiseEvent(MatchManager.GameEndEventCode, null, raiseEventOptions, SendOptions.SendReliable);
+        }
+    }
+
+    public void SurrenderUI(GameObject endgamePanel)
+    {
+        StartCoroutine(EnableGameEndedPanel(endgamePanel));
+    }
+
+    private void EnableEndgamePanel(EventData obj)
+    {
+        if (obj.Code == MatchManager.GameEndEventCode)
+        {
+            GameObject endgamePanel = null;
+
+            if ((int)PhotonNetwork.LocalPlayer.CustomProperties[CustomKeys.WINS] >
+                (int)PhotonNetwork.PlayerListOthers[0].CustomProperties[CustomKeys.WINS])
+            {
+                endgamePanel = VictoryPanel;
+            }
+            else if ((int)PhotonNetwork.LocalPlayer.CustomProperties[CustomKeys.WINS] <
+                     (int)PhotonNetwork.PlayerListOthers[0].CustomProperties[CustomKeys.WINS])
+            {
+                endgamePanel = DefeatPanel;
+            }
+
+            StartCoroutine(EnableGameEndedPanel(endgamePanel));
+        }
     }
 
     #endregion

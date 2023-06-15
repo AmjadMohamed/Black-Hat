@@ -96,11 +96,6 @@ public class MainMenuManager : MonoBehaviour
         }
     }
 
-    public void Options()
-    {
-
-    }
-
     public void ExitGame()
     {
         Application.Quit();

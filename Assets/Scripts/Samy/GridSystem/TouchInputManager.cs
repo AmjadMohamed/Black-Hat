@@ -43,7 +43,7 @@ public class TouchInputManager : MonoBehaviour
         }
 
         instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     public bool HasTouchInput()

@@ -2,7 +2,6 @@ using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Random = UnityEngine.Random;
 
@@ -17,6 +16,8 @@ public class MatchManager : MonoBehaviourPunCallbacks
 
     public const byte MiningUsedEventCode = 4;
     public const byte AdwareAbilityEventCode = 5;
+    public const byte SurrenderEventCode = 6;
+    public const byte GameEndEventCode = 7;
 
     #endregion
 
@@ -80,15 +81,6 @@ public class MatchManager : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        if (SceneManager.GetActiveScene().name == MatchManager.Instance.GAMEPLAY_SCENE_NAME)
-        {
-            // TODO: Profiler: cache this list
-            if (PhotonNetwork.PlayerList.Length < 2)
-            {
-                DisconnectPlayersRaiseEvent();
-            }
-        }
-
         if (Input.GetKeyDown(KeyCode.Space))
         {
             EndRound(true);
@@ -143,15 +135,19 @@ public class MatchManager : MonoBehaviourPunCallbacks
         StartMatch();
     }
 
-    public override void OnDisconnected(DisconnectCause cause)
+    public override void OnLeftRoom()
     {
-        if (_disconnected && SceneManager.GetActiveScene().name == GAMEPLAY_SCENE_NAME)
+        if (_disconnected)
         {
             DisconnectPlayersRaiseEvent();
             UILayer.Instance.EnableDisconnectionPanel();
         }
-
         ResetMatch();
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        DisconnectPlayersRaiseEvent();
     }
 
     #endregion
@@ -268,17 +264,8 @@ public class MatchManager : MonoBehaviourPunCallbacks
     {
         SetPlayerDisconnected(false);
 
-        if ((int)PhotonNetwork.LocalPlayer.CustomProperties[CustomKeys.WINS] >
-            (int)PhotonNetwork.PlayerListOthers[0].CustomProperties[CustomKeys.WINS])
-        {
-            UILayer.Instance.EnableEndgamePanel(UILayer.Instance.VictoryPanel);
-        }
-        else if ((int)PhotonNetwork.LocalPlayer.CustomProperties[CustomKeys.WINS] <
-                 (int)PhotonNetwork.PlayerListOthers[0].CustomProperties[CustomKeys.WINS])
-        {
-            UILayer.Instance.EnableEndgamePanel(UILayer.Instance.DefeatPanel);
-        }
-
+        if (PhotonNetwork.IsMasterClient)
+            UILayer.Instance.EnableEndgamePanelRaiseEvent();
     }
 
     private void SwitchSides(EventData obj)
@@ -328,7 +315,8 @@ public class MatchManager : MonoBehaviourPunCallbacks
     {
         if (obj.Code == DisconnectPlayersEventCode)
         {
-            PhotonNetwork.Disconnect();
+            if (PhotonNetwork.InRoom)
+                PhotonNetwork.LeaveRoom();
         }
     }
 
