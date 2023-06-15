@@ -25,11 +25,15 @@ public class GenericAbility : MonoBehaviour
         }
 
         DisplayTime(_timer);
-        if (EnergyManager.Instance._energy < cost || _nextUseTime > Time.time )
+        if (_nextUseTime > Time.time)
         {
             _card.interactable = false;
             cooldownText.gameObject.SetActive(true);
             _isOnCooldown = true;
+        }
+        else if (EnergyManager.Instance._energy < cost)
+        {
+            _card.interactable = false;
         }
         else
         {
@@ -39,7 +43,7 @@ public class GenericAbility : MonoBehaviour
         }
     }
 
-    private void DisplayTime(float timeToDisplay)
+    protected void DisplayTime(float timeToDisplay)
     {
         if (timeToDisplay < 0)
         {
