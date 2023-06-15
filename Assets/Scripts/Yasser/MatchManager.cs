@@ -287,7 +287,6 @@ public class MatchManager : MonoBehaviourPunCallbacks
             StartCoroutine(UILayer.Instance.EnableSwitchingSidesPanel(1));
 
             ResetRound();
-            Debug.Log("Came here");
             StartMatch();
         }
     }

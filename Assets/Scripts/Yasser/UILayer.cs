@@ -15,7 +15,7 @@ public class UILayer : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject switchingSidesPanel;
     [SerializeField] private TMP_Text roundNumText;
     [SerializeField] private TMP_Text attackerDefenderTurnText;
-    [SerializeField] private GameObject ads;
+    public GameObject ads;
     [SerializeField] private GameObject matchDisconnetedPanel;
 
     #endregion
@@ -140,6 +140,13 @@ public class UILayer : MonoBehaviourPunCallbacks
 
     public void ShowAds()
     {
+        foreach (Transform AD in ads.transform)
+        {
+            AD.gameObject.SetActive(false);
+        }
+        ads.SetActive(false);
+
+
         foreach (Transform AD in ads.transform)
         {
             AD.gameObject.SetActive(true);

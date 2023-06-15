@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void UpdateUI()
     {
+        UILayer.Instance.ads.gameObject.SetActive(false);
         UILayer.Instance.roundText.text = "Round: " + MatchManager.Instance.currentRound;
 
         UILayer.Instance.p1NameText.text = (string)PhotonNetwork.PlayerList[0].CustomProperties[CustomKeys.User_Name];
