@@ -10,8 +10,8 @@ public class UILayer : MonoBehaviourPunCallbacks
 {
     #region Serialized Fields
 
-    [SerializeField] private Canvas attackerUI;
-    [SerializeField] private Canvas defenderUI;
+    [SerializeField] private GameObject attackerUI;
+    [SerializeField] private GameObject defenderUI;
     [SerializeField] private GameObject switchingSidesPanel;
     [SerializeField] private TMP_Text roundNumText;
     [SerializeField] private TMP_Text attackerDefenderTurnText;
@@ -69,24 +69,46 @@ public class UILayer : MonoBehaviourPunCallbacks
 
     public void LoadPlayerUI(MatchManager.Side side)
     {
-        if (attackerUI.enabled || defenderUI.enabled)
+        if(attackerUI.activeSelf|| defenderUI.activeSelf)
         {
-            attackerUI.enabled = false;
-            defenderUI.enabled = false;
+            attackerUI.SetActive(false);
+            defenderUI.SetActive(false);
         }
 
-        switch (side)
+        switch(side)
         {
             case MatchManager.Side.Attacker:
-                defenderUI.enabled = false;
-                attackerUI.enabled = true;
+                defenderUI.SetActive(false);
+                attackerUI.SetActive(true);
                 break;
             case MatchManager.Side.Defender:
-                attackerUI.enabled = false;
-                defenderUI.enabled = true;
+                defenderUI.SetActive(true);
+                attackerUI.SetActive(false);
                 break;
         }
     }
+
+
+    //public void LoadPlayerUI(MatchManager.Side side)
+    //{
+    //    if (attackerUI.enabled || defenderUI.enabled)
+    //    {
+    //        attackerUI.enabled = false;
+    //        defenderUI.enabled = false;
+    //    }
+
+    //    switch (side)
+    //    {
+    //        case MatchManager.Side.Attacker:
+    //            defenderUI.enabled = false;
+    //            attackerUI.enabled = true;
+    //            break;
+    //        case MatchManager.Side.Defender:
+    //            attackerUI.enabled = false;
+    //            defenderUI.enabled = true;
+    //            break;
+    //    }
+    //}
 
     public IEnumerator EnableSwitchingSidesPanel(int increment)
     {
