@@ -6,7 +6,6 @@ using UnityEngine;
 public class GameManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] private GameObject timerGameObject;
-    private bool _surrendered;
 
     #region Public Variables
 
@@ -33,7 +32,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         base.OnEnable();
         PhotonNetwork.NetworkingClient.EventReceived += ShowAds;
-        PhotonNetwork.NetworkingClient.EventReceived += Surrender;
         Application.targetFrameRate = 60;
     }
 
@@ -41,12 +39,10 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         base.OnDisable();
         PhotonNetwork.NetworkingClient.EventReceived -= ShowAds;
-        PhotonNetwork.NetworkingClient.EventReceived -= Surrender;
     }
 
     private void Start()
     {
-        _surrendered = false;
         UpdateUI();
     }
 
@@ -76,33 +72,5 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             UILayer.Instance.ShowAds();
         }
-    }
-
-    private void SurrenderRaiseEvent()
-    {
-        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
-        PhotonNetwork.RaiseEvent(MatchManager.SurrenderEventCode, null, raiseEventOptions, SendOptions.SendReliable);
-    }
-
-    private void Surrender(EventData obj)
-    {
-        if (obj.Code == MatchManager.SurrenderEventCode)
-        {
-            MatchManager.Instance.SetPlayerDisconnected(false);
-            if (_surrendered)
-            {
-                UILayer.Instance.SurrenderUI(UILayer.Instance.DefeatPanel);
-            }
-            else
-            {
-                UILayer.Instance.SurrenderUI(UILayer.Instance.VictoryPanel);
-            }
-        }        
-    }
-
-    public void Surrender()
-    {
-        _surrendered = true;
-        SurrenderRaiseEvent();
     }
 }

@@ -10,6 +10,7 @@ public class UILayer : MonoBehaviourPunCallbacks
 {
     #region Serialized Fields
 
+    [SerializeField] private GameObject[] uiToDisable;
     [SerializeField] private GameObject attackerUI;
     [SerializeField] private GameObject defenderUI;
     [SerializeField] private GameObject switchingSidesPanel;
@@ -17,6 +18,7 @@ public class UILayer : MonoBehaviourPunCallbacks
     [SerializeField] private TMP_Text attackerDefenderTurnText;
     public GameObject ads;
     [SerializeField] private GameObject matchDisconnetedPanel;
+    private bool _surrendered;
 
     #endregion
 
@@ -55,12 +57,19 @@ public class UILayer : MonoBehaviourPunCallbacks
     {
         base.OnEnable();
         PhotonNetwork.NetworkingClient.EventReceived += EnableEndgamePanel;
+        PhotonNetwork.NetworkingClient.EventReceived += Surrender;
     }
 
     public override void OnDisable()
     {
         base.OnDisable();
         PhotonNetwork.NetworkingClient.EventReceived -= EnableEndgamePanel;
+        PhotonNetwork.NetworkingClient.EventReceived -= Surrender;
+    }
+
+    private void Start()
+    {
+        _surrendered = false;
     }
 
     #endregion
@@ -87,28 +96,6 @@ public class UILayer : MonoBehaviourPunCallbacks
                 break;
         }
     }
-
-
-    //public void LoadPlayerUI(MatchManager.Side side)
-    //{
-    //    if (attackerUI.enabled || defenderUI.enabled)
-    //    {
-    //        attackerUI.enabled = false;
-    //        defenderUI.enabled = false;
-    //    }
-
-    //    switch (side)
-    //    {
-    //        case MatchManager.Side.Attacker:
-    //            defenderUI.enabled = false;
-    //            attackerUI.enabled = true;
-    //            break;
-    //        case MatchManager.Side.Defender:
-    //            attackerUI.enabled = false;
-    //            defenderUI.enabled = true;
-    //            break;
-    //    }
-    //}
 
     public IEnumerator EnableSwitchingSidesPanel(int increment)
     {
@@ -171,7 +158,7 @@ public class UILayer : MonoBehaviourPunCallbacks
         }
     }
 
-    public void SurrenderUI(GameObject endgamePanel)
+    private void SurrenderUI(GameObject endgamePanel)
     {
         StartCoroutine(EnableGameEndedPanel(endgamePanel));
     }
@@ -213,10 +200,48 @@ public class UILayer : MonoBehaviourPunCallbacks
     private IEnumerator EnableGameEndedPanel(GameObject endgamePanel)
     {
         endgamePanel.SetActive(true);
+
+        foreach (GameObject ui in uiToDisable)
+        {
+            ui.SetActive(false);
+        }
+
+        DisableUI disableUI = FindObjectOfType<DisableUI>();
+        disableUI.DisableUIElements();
+
         yield return new WaitForSeconds(3.0f);
         endgamePanel.SetActive(false);
         ReturnToMainMenu();
     }
 
     #endregion
+
+
+    private void SurrenderRaiseEvent()
+    {
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(MatchManager.SurrenderEventCode, null, raiseEventOptions, SendOptions.SendReliable);
+    }
+
+    private void Surrender(EventData obj)
+    {
+        if (obj.Code == MatchManager.SurrenderEventCode)
+        {
+            MatchManager.Instance.SetPlayerDisconnected(false);
+            if (_surrendered)
+            {
+               SurrenderUI(DefeatPanel);
+            }
+            else
+            {
+                SurrenderUI(VictoryPanel);
+            }
+        }
+    }
+
+    public void Surrender()
+    {
+        _surrendered = true;
+        SurrenderRaiseEvent();
+    }
 }
