@@ -62,18 +62,24 @@ SpriteAtlas:
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: b0754640c127fa541bb503a16e230460, type: 3}
+  - {fileID: 21300000, guid: 9fadfae0a7ea5d446a831115f79d6171, type: 3}
+  - {fileID: 21300000, guid: b543f66155f888c4f9d23f571f5aa8a9, type: 3}
+  - {fileID: 21300000, guid: 85ce7da6a8caad64985d735286cd95d5, type: 3}
   - {fileID: 21300000, guid: 7e931a08fcb8ed4489c6e2f2b374b469, type: 3}
   - {fileID: 21300000, guid: 2193ce19a4d1c3f4eba4f9aaf75c8d69, type: 3}
-  - {fileID: 21300000, guid: 106e86fa748e317408678398a3c4f22d, type: 3}
-  - {fileID: 21300000, guid: 61bc3f7b9ff80dd4b8a093ca35452322, type: 3}
-  - {fileID: 21300000, guid: 860c2aeba32b99c48a9e1b5304e03aac, type: 3}
+  - {fileID: 21300000, guid: 64f3e14a07139134080d414f56deab86, type: 3}
+  - {fileID: 21300000, guid: efcfd52c8bf9834469dda28a09460401, type: 3}
   - {fileID: 21300000, guid: 41a041dc428d77d4bba22dc0811ae8e2, type: 3}
   m_PackedSpriteNamesToIndex:
+  - Adware
+  - Trojan_Horse
+  - Ransomware
+  - WhatsApp Image 2023-06-15 at 5.44.16 PM
   - NewBlankCard
   - Energy
-  - Newest_Adware
-  - Newest_TrojanHorse
-  - Newest_Virus
+  - Blank_Card
+  - Virus
   - ADS
   m_RenderDataMap: {}
   m_Tag: DynamicHUD_Attacker_Sprite_Atlas
