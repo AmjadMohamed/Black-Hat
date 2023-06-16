@@ -76,7 +76,7 @@ SpriteAtlas:
   - Mining
   - Blank_Card
   - Virus
-  - Ads
+  - ADS
   m_RenderDataMap: {}
   m_Tag: DynamicHUD_Attacker_Sprite_Atlas
   m_IsVariant: 0
