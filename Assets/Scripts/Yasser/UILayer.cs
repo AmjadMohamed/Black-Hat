@@ -102,11 +102,11 @@ public class UILayer : MonoBehaviourPunCallbacks
         roundNumText.text = $"Round: {MatchManager.Instance.currentRound + increment}";
         if ((MatchManager.Side)PhotonNetwork.LocalPlayer.CustomProperties[CustomKeys.P_SIDE] == MatchManager.Side.Attacker)
         {
-            attackerDefenderTurnText.text = "Now You Are An <color=red>Attacker</color>";
+            attackerDefenderTurnText.text = "<color=red>Attacker</color>";
         }
         else
         {
-            attackerDefenderTurnText.text = "Now You Are A <color=blue>Defender</color>";
+            attackerDefenderTurnText.text = "<color=blue>Defender</color>";
         }
 
 
@@ -120,6 +120,7 @@ public class UILayer : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             PhotonNetwork.LoadLevel(MatchManager.Instance.MAIN_MENU_SCENE_NAME);
+            MatchManager.Instance.InGame = false;
             PhotonNetwork.LeaveRoom();
         }
         Destroy(gameObject);
@@ -200,6 +201,8 @@ public class UILayer : MonoBehaviourPunCallbacks
     private IEnumerator EnableGameEndedPanel(GameObject endgamePanel)
     {
         endgamePanel.SetActive(true);
+        SoundManager.Instance.PlaySoundEffect(MatchManager.Instance.endgameClip);
+        SoundManager.Instance.StopBackgroundMusic();
 
         foreach (GameObject ui in uiToDisable)
         {
@@ -211,6 +214,7 @@ public class UILayer : MonoBehaviourPunCallbacks
 
         yield return new WaitForSeconds(3.0f);
         endgamePanel.SetActive(false);
+
         ReturnToMainMenu();
     }
 

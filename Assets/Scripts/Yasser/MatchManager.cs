@@ -33,6 +33,7 @@ public class MatchManager : MonoBehaviourPunCallbacks
     public static MatchManager Instance { get; private set; }
     public string MAIN_MENU_SCENE_NAME;
     public string GAMEPLAY_SCENE_NAME;
+    public AudioClip endgameClip;
 
     #endregion
 
@@ -45,6 +46,7 @@ public class MatchManager : MonoBehaviourPunCallbacks
     private int _p1Energy;
     private int _p2Energy;
     private bool _disconnected = true;
+    public bool InGame;
 
     #endregion
 
@@ -137,7 +139,7 @@ public class MatchManager : MonoBehaviourPunCallbacks
 
     public override void OnLeftRoom()
     {
-        if (_disconnected)
+        if (_disconnected && InGame)
         {
             DisconnectPlayersRaiseEvent();
             UILayer.Instance.EnableDisconnectionPanel();
@@ -315,7 +317,10 @@ public class MatchManager : MonoBehaviourPunCallbacks
         if (obj.Code == DisconnectPlayersEventCode)
         {
             if (PhotonNetwork.InRoom)
+            {
+                InGame = true;
                 PhotonNetwork.LeaveRoom();
+            }
         }
     }
 

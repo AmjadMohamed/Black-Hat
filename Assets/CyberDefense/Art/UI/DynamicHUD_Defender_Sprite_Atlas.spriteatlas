@@ -62,17 +62,15 @@ SpriteAtlas:
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: 21300000, guid: 46fe54801f3546e409f866c2c84e5ba1, type: 3}
-  - {fileID: 21300000, guid: 8e10f541753478c458401e4ec04beb16, type: 3}
-  - {fileID: 21300000, guid: 1d79011937b28654e94e9e8b529adac9, type: 3}
-  - {fileID: 21300000, guid: 67b4eda99814d6c4894af6bfaa2250c3, type: 3}
-  - {fileID: 21300000, guid: 98758b0fd7c1c0c4684ce8a51be270aa, type: 3}
+  - {fileID: 21300000, guid: 8048f4619f012414997058a28afbf14a, type: 3}
+  - {fileID: 21300000, guid: 7af63594e4e1f0c4e836d681b52cae0a, type: 3}
+  - {fileID: 21300000, guid: aa2d656585aee314886c23432c3cd53a, type: 3}
+  - {fileID: 21300000, guid: 4e68c66db85e98c47a3946079a8420c8, type: 3}
   m_PackedSpriteNamesToIndex:
-  - DeepScanner
-  - Tower
   - Update
-  - Anti_Malware
+  - Tower
   - Firewall
+  - Antimalware
   m_RenderDataMap: {}
   m_Tag: DynamicHUD_Defender_Sprite_Atlas
   m_IsVariant: 0
