@@ -142,6 +142,13 @@ public class GridBuildingSystem3DTutorial : MonoBehaviour
                 else
                 {
                     // Cannot build here
+                    if(towerBase)
+                    {
+                        if(towerBase.InvalidPlacementSFX)
+                        {
+                            SoundManager.Instance.PlaySoundEffect(towerBase.InvalidPlacementSFX);
+                        }
+                    }
                     UtilsClass.CreateWorldTextPopup("Cannot Build Here!", new Vector3(mousePosition.x-12, mousePosition.y, mousePosition.z));
                     DeselectObjectType();
                 }

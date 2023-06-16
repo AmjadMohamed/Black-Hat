@@ -26,8 +26,9 @@ public class GridBuildingSystem3D : MonoBehaviour
     bool RayCastCheck;
 
 
-    public int counter =0;
-    private void Awake() {
+    public int counter = 0;
+    private void Awake()
+    {
         Instance = this;
         MyCamera = Camera.main;
         grid = new GridXZ<GridObject>(gridWidth, gridHeight, cellSize, new Vector3(transform.position.x, transform.position.y, transform.position.z), (GridXZ<GridObject> g, int x, int y) => new GridObject(g, x, y));
@@ -35,46 +36,54 @@ public class GridBuildingSystem3D : MonoBehaviour
         placedObjectTypeSO = null;
     }
 
-    public class GridObject {
-        
+    public class GridObject
+    {
+
         private GridXZ<GridObject> grid;
         private int x;
         private int y;
         public PlacedObject_Done placedObject;
 
-        public GridObject(GridXZ<GridObject> grid, int x, int y) {
+        public GridObject(GridXZ<GridObject> grid, int x, int y)
+        {
             this.grid = grid;
             this.x = x;
             this.y = y;
             placedObject = null;
         }
 
-        public override string ToString() {
+        public override string ToString()
+        {
             return x + ", " + y + "\n" + placedObject;
         }
 
-        public void SetPlacedObject(PlacedObject_Done placedObject) {
+        public void SetPlacedObject(PlacedObject_Done placedObject)
+        {
             this.placedObject = placedObject;
             grid.TriggerGridObjectChanged(x, y);
         }
 
-        public void ClearPlacedObject() {
+        public void ClearPlacedObject()
+        {
             placedObject = null;
             grid.TriggerGridObjectChanged(x, y);
         }
 
-        public PlacedObject_Done GetPlacedObject() {
+        public PlacedObject_Done GetPlacedObject()
+        {
             return placedObject;
         }
 
-        public bool CanBuild() {
+        public bool CanBuild()
+        {
 
             return placedObject == null;
         }
 
     }
 
-    private void Update() {
+    private void Update()
+    {
 
         InputHandler();
     }
@@ -84,13 +93,13 @@ public class GridBuildingSystem3D : MonoBehaviour
         if (placedObjectTypeSO != null && EnergyManager.Instance._energy >= towerBase.EnergyCost && !EventSystem.current.IsPointerOverGameObject())
         {
             Vector3 mousePosition;
-            if (Input.GetMouseButtonUp(0)||TouchInputManager.Instance.GetTouchPhase() == TouchPhase.Ended)
+            if (Input.GetMouseButtonUp(0) || TouchInputManager.Instance.GetTouchPhase() == TouchPhase.Ended)
             {
                 if (TouchInputManager.Instance.HasTouchInput())
                 {
                     RayCastCheck = TouchInputManager.Instance.CANBUILD();
                     mousePosition = TouchInputManager.Instance.GetTouchWorldPosition();
-                    if(counter==0)
+                    if (counter == 0)
                     {
                         counter++;
                         return;
@@ -122,7 +131,7 @@ public class GridBuildingSystem3D : MonoBehaviour
                 if (canBuild && RayCastCheck)
                 {
                     Vector2Int rotationOffset = Vector2Int.zero;
-                    Vector3 placedObjectWorldPosition = grid.GetWorldPosition(placedObjectOrigin.x, placedObjectOrigin.y) +new Vector3(rotationOffset.x, 0, rotationOffset.y)  * grid.GetCellSize()/2;
+                    Vector3 placedObjectWorldPosition = grid.GetWorldPosition(placedObjectOrigin.x, placedObjectOrigin.y) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize() / 2;
                     if (GetPlacedObjectTypeSO() == null)
                         return;
                     PlacedObject_Done placedObject = PlacedObject_Done.Create(placedObjectWorldPosition, placedObjectOrigin, dir, placedObjectTypeSO);
@@ -135,12 +144,19 @@ public class GridBuildingSystem3D : MonoBehaviour
                     OnObjectPlaced?.Invoke(this, EventArgs.Empty);
                     EnergyManager.Instance.DecreaseEnergy(towerBase.EnergyCost);
                     DeselectObjectType();
-                    counter= 0;
+                    counter = 0;
                 }
                 else
                 {
                     // Cannot build here
-                    UtilsClass.CreateWorldTextPopup("Cannot Build Here!", new Vector3(mousePosition.x-12, mousePosition.y, mousePosition.z));
+                    if (towerBase)
+                    {
+                        if (towerBase.InvalidPlacementSFX)
+                        {
+                            SoundManager.Instance.PlaySoundEffect(towerBase.InvalidPlacementSFX);
+                        }
+                    }
+                    UtilsClass.CreateWorldTextPopup("Cannot Build Here!", new Vector3(mousePosition.x - 12, mousePosition.y, mousePosition.z));
                     DeselectObjectType();
                     counter = 0;
 
@@ -148,46 +164,54 @@ public class GridBuildingSystem3D : MonoBehaviour
             }
         }
 
-            RefreshSelectedObjectType();  
+        RefreshSelectedObjectType();
 
     }
 
-    public void DeselectObjectType() {
-        placedObjectTypeSO = null; 
+    public void DeselectObjectType()
+    {
+        placedObjectTypeSO = null;
         RefreshSelectedObjectType();
     }
 
-    private void RefreshSelectedObjectType() {
+    private void RefreshSelectedObjectType()
+    {
         OnSelectedChanged?.Invoke(this, EventArgs.Empty);
     }
 
 
-    public Vector2Int GetGridPosition(Vector3 worldPosition) {
+    public Vector2Int GetGridPosition(Vector3 worldPosition)
+    {
         grid.GetXZ(worldPosition, out int x, out int z);
         return new Vector2Int(x, z);
     }
 
-    public Vector3 GetMouseWorldSnappedPosition() {
+    public Vector3 GetMouseWorldSnappedPosition()
+    {
         Vector3 mousePosition;
         if (TouchInputManager.Instance.HasTouchInput())
         {
-          mousePosition = TouchInputManager.Instance.GetTouchWorldPosition();
+            mousePosition = TouchInputManager.Instance.GetTouchWorldPosition();
         }
         else
         {
-            mousePosition =  Mouse3D.Instance.GetMouseWorldPosition();
+            mousePosition = Mouse3D.Instance.GetMouseWorldPosition();
         }
         grid.GetXZ(mousePosition, out int x, out int z);
-        if (placedObjectTypeSO != null) {
-            Vector3 placedObjectWorldPosition = grid.GetWorldPosition(x, z)  + Vector3.zero * grid.GetCellSize()/2;
+        if (placedObjectTypeSO != null)
+        {
+            Vector3 placedObjectWorldPosition = grid.GetWorldPosition(x, z) + Vector3.zero * grid.GetCellSize() / 2;
             return placedObjectWorldPosition;
-        } else {
+        }
+        else
+        {
             return mousePosition;
         }
     }
 
 
-    public PlacedObjectTypeSO GetPlacedObjectTypeSO() {
+    public PlacedObjectTypeSO GetPlacedObjectTypeSO()
+    {
         return placedObjectTypeSO;
     }
     public void SetPlacedObjectTypeSO(int TypeNum)
