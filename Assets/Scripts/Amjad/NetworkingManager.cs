@@ -64,6 +64,7 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.InRoom)
         {
+            MatchManager.Instance.InGame = false;
             PhotonNetwork.LeaveRoom();
         }
     }

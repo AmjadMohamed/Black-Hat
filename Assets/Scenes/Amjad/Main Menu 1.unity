@@ -3016,8 +3016,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a9bb1bab8ed86e478df760676dd73f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainMenuMusic: {fileID: 8300000, guid: 2d32c5e876f98cc43a1b4abab9a1e177, type: 3}
-  GameplayMusic: {fileID: 8300000, guid: 1a28639ce32414e4d8eb1dc6404b1de9, type: 3}
 --- !u!4 &762839598
 Transform:
   m_ObjectHideFlags: 0
@@ -7016,10 +7014,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 844955e1e685e4b4ea00fae796e5bd1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  endgameClip: {fileID: 8300000, guid: 87629ebcd0e8e2f40b2be360cdf6c1b6, type: 3}
   roundTime: 150
   currentRound: 1
   MAIN_MENU_SCENE_NAME: Main Menu 1
   GAMEPLAY_SCENE_NAME: Gameplay Scene1_aya_edit
+  InGame: 0
 --- !u!4 &2133242351
 Transform:
   m_ObjectHideFlags: 0

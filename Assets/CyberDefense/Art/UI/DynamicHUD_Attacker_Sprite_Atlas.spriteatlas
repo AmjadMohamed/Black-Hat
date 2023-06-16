@@ -66,7 +66,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 9fadfae0a7ea5d446a831115f79d6171, type: 3}
   - {fileID: 21300000, guid: b543f66155f888c4f9d23f571f5aa8a9, type: 3}
   - {fileID: 21300000, guid: 85ce7da6a8caad64985d735286cd95d5, type: 3}
-  - {fileID: 21300000, guid: 7e931a08fcb8ed4489c6e2f2b374b469, type: 3}
   - {fileID: 21300000, guid: 2193ce19a4d1c3f4eba4f9aaf75c8d69, type: 3}
   - {fileID: 21300000, guid: 64f3e14a07139134080d414f56deab86, type: 3}
   - {fileID: 21300000, guid: efcfd52c8bf9834469dda28a09460401, type: 3}
@@ -76,7 +75,6 @@ SpriteAtlas:
   - Trojan_Horse
   - Ransomware
   - WhatsApp Image 2023-06-15 at 5.44.16 PM
-  - NewBlankCard
   - Energy
   - Blank_Card
   - Virus
