@@ -3,8 +3,8 @@
 
  public class BuildingGhostTutorial : MonoBehaviour
  {
-     private Transform visual;
-     private PlacedObjectTypeSO placedObjectTypeSO;
+     public Transform visual;
+     public PlacedObjectTypeSO placedObjectTypeSO;
      
      private void Start()
      {

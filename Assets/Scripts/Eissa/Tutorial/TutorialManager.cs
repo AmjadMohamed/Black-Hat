@@ -30,6 +30,7 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private float rotateDelay = 1f; // Delay in seconds before allowing rotation after zooming
     [SerializeField] private float minSwipeDistance = 1; // Minimum swipe distance required for rotation
     [SerializeField] private GameObject _camera;
+    [SerializeField] private BuildingGhostTutorial buildingGhostTutorial;
     private Camera camera;
 
     private Vector3 previousMousePosition;
@@ -116,6 +117,9 @@ public class TutorialManager : MonoBehaviour
                 case 2: // for teaching camera rotation
                     EnableTheRotationsTutorial();
                     break;
+                case 3: // for teach the player about the two sides
+                    
+                    break;
                 case 4: // for teaching Spawning the malware
                     EnableTheMalwareSpawningTutorial();
                     break;
@@ -154,7 +158,10 @@ public class TutorialManager : MonoBehaviour
     {
         if (!EventSystem.current.IsPointerOverGameObject())
         {
-            HandleCameraRotation();
+            if (buildingGhostTutorial.visual == null)
+            {
+                HandleCameraRotation();
+            }
             HandleCameraZoom();
         }
     }
