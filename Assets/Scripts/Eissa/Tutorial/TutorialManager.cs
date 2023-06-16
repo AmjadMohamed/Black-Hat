@@ -51,6 +51,7 @@ public class TutorialManager : MonoBehaviour
     private int spwanedMalwareNumber;
     [SerializeField] private int requiredNumberOfMalware = 12;
     [SerializeField] private GameObject malwareParent;
+    [SerializeField] private List<GameObject> SpwanPoints = new List<GameObject>();
 
     #endregion
 
@@ -89,10 +90,9 @@ public class TutorialManager : MonoBehaviour
             _instance = this;
         }
 
-      
         ResettingTheGameVariables();
         SwitchThePopupsOnAndOff();
-        
+        SwitchRelatedGameObjectsToTheCurrentTutorial();
         
         camera = Camera.main;
     }
@@ -119,9 +119,6 @@ public class TutorialManager : MonoBehaviour
                 case 4: // for teaching Spawning the malware
                     EnableTheMalwareSpawningTutorial();
                     break;
-                case 10: 
-                    EnableTheAbilitySpawningTutorial();
-                    break;;
                 case 5: // for teaching the player about tower Placement
                     EnableTheTowerPlacementTutorial();
                     break;
@@ -264,6 +261,25 @@ public class TutorialManager : MonoBehaviour
             {
                 popups[i].gameObject.SetActive(false);
             }
+        }
+    }
+
+    void SwitchRelatedGameObjectsToTheCurrentTutorial()
+    {
+        switch (_currentIndex)
+        {
+            case 0:
+                foreach (var spawnPoint in SpwanPoints)
+                {
+                    spawnPoint.SetActive(false);
+                }
+                break;
+            case 4:
+                foreach (var spawnPoint in SpwanPoints)
+                {
+                    spawnPoint.SetActive(true);
+                }
+                break;
         }
     }
 
@@ -528,6 +544,7 @@ public class TutorialManager : MonoBehaviour
         yield return new WaitForSeconds(_timeBetweenTutorials);
         _currentIndex++;
         SwitchThePopupsOnAndOff();
+        SwitchRelatedGameObjectsToTheCurrentTutorial();
         ResettingTheGameVariables();
         _timeBetweenTutorialCoroutine = null;
         _closedTheTutorialPanel = false;
