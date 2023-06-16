@@ -202,7 +202,7 @@ public class UILayer : MonoBehaviourPunCallbacks
     {
         endgamePanel.SetActive(true);
         SoundManager.Instance.PlaySoundEffect(MatchManager.Instance.endgameClip);
-        SoundManager.Instance.StopBackgroundMusic();
+        //SoundManager.Instance.StopBackgroundMusic();
 
         foreach (GameObject ui in uiToDisable)
         {
