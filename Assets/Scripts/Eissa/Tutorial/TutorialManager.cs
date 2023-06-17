@@ -73,6 +73,8 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private GameObject towerParent;
     [HideInInspector] public int towerCounter;
     private int RequierdTowerNumber = 3;
+    private int _modificationCounter;
+    private int requierdModificationNumber = 3;
     #endregion
 
     #region UI
@@ -120,19 +122,19 @@ public class TutorialManager : MonoBehaviour
                 case 4: // for teaching Spawning the malware
                     EnableTheMalwareSpawningTutorial();
                     break;
-                case 5: // for teaching the player about tower Placement
+                case 5: // 
                     
                     break;
-                case 6: // for teaching the player about tower modifications
+                case 6: // for teaching the player about tower Placement
                     EnableTheTowerPlacementTutorial();
                     break;
                 case 7: // for teaching the player about tower modifications
                     EnableTheTowerModificationsTutorial();
                     break;
-                case 8: // for teaching the player about tower modifications
+                case 8: // for teaching the player about the tower modiications diffrences
                     
                     break;
-                case 9: // for teaching the player about tower modifications
+                case 9: // for ending the tutorial and send the player to the main menu
                     
                     break;
             }
@@ -251,6 +253,13 @@ public class TutorialManager : MonoBehaviour
 
         EnableTheZoomAndRotationsTutorial();
         GetInputForTowerModifications();
+        if (_modificationCounter>= requierdModificationNumber)
+        {
+            if (_timeBetweenTutorialCoroutine == null)
+            {
+                _timeBetweenTutorialCoroutine = StartCoroutine(FinishTheCurrentTutorial(2f));
+            }
+        }
 
     }
 
@@ -296,6 +305,12 @@ public class TutorialManager : MonoBehaviour
                 foreach (var spawnPoint in SpwanPoints)
                 {
                     spawnPoint.SetActive(true);
+                }
+                break;
+            case 6:
+                foreach (var spawnPoint in SpwanPoints)
+                {
+                    spawnPoint.SetActive(false);
                 }
                 break;
         }
@@ -520,6 +535,7 @@ public class TutorialManager : MonoBehaviour
                 {
                     hit.transform.GetComponent<TowerTutorial>().ModifyTower(towerModifications);
                     _currentEnergy -= towerModifications.EnergyCost;
+                    _modificationCounter++;
                     towerModifications = null;
                 }
                 towerModifications = null;
@@ -552,6 +568,7 @@ public class TutorialManager : MonoBehaviour
         attackerPanel.SetActive(false);
         towerCounter = 0;
         spwanedMalwareNumber = 0;
+        _modificationCounter = 0;
         DestroyAllTheSpawnedMalware();
         _currentEnergy = maxEnergy;
         malwareIndex = int.MaxValue;
