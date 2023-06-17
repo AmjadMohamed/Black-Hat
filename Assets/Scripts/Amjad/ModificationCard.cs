@@ -16,7 +16,7 @@ public class ModificationCard : MonoBehaviour
     void Start()
     {
         // this.GetComponent<Image>().color = _malwareData.CardColor;
-        //this.GetComponentInChildren<TMP_Text>().text = _modificationCard.EnergyCost.ToString();
+        this.GetComponentInChildren<TMP_Text>().text = _modificationCard.EnergyCost.ToString();
     }
 
     void Update()

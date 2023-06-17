@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,9 +12,9 @@ public class PlaceTowerButton : MonoBehaviour
     int towerEnergy;
     void Start()
     {
-        myButton= GetComponent<Button>();
+        myButton = GetComponent<Button>();
         GameObject GridSystem = GameObject.Find("GridBuildingSystem3D");
-        
+
         // Check if the game object was found
         if (GridSystem != null)
         {
@@ -26,8 +27,9 @@ public class PlaceTowerButton : MonoBehaviour
         }
 
         myButton.onClick.AddListener(OnClick);
-       
+
         towerEnergy = towerBase.EnergyCost;
+        this.GetComponentInChildren<TMP_Text>().text = towerEnergy.ToString();
     }
 
     public void OnClick()
@@ -37,13 +39,13 @@ public class PlaceTowerButton : MonoBehaviour
 
     private void Update()
     {
-        if(EnergyManager.Instance._energy >= towerEnergy)
+        if (EnergyManager.Instance._energy >= towerEnergy)
         {
-            myButton.interactable= true;
+            myButton.interactable = true;
         }
         else
         {
-            myButton.interactable= false;
+            myButton.interactable = false;
         }
     }
 }

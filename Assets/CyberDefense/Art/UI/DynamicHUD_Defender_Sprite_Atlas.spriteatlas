@@ -64,13 +64,21 @@ SpriteAtlas:
   m_PackedSprites:
   - {fileID: 21300000, guid: 8048f4619f012414997058a28afbf14a, type: 3}
   - {fileID: 21300000, guid: 7af63594e4e1f0c4e836d681b52cae0a, type: 3}
+  - {fileID: 21300000, guid: aa74cfe4ec057b9459c3f69df6b17b6a, type: 3}
   - {fileID: 21300000, guid: aa2d656585aee314886c23432c3cd53a, type: 3}
+  - {fileID: 21300000, guid: ee124e28db1c91f4c887f6225caced7a, type: 3}
+  - {fileID: 21300000, guid: 22debc8c0af4f0c4cadd1f983ee3d20b, type: 3}
   - {fileID: 21300000, guid: 4e68c66db85e98c47a3946079a8420c8, type: 3}
+  - {fileID: 21300000, guid: d5192edf56770f04e9c74281c49a1f68, type: 3}
   m_PackedSpriteNamesToIndex:
   - Update
   - Tower
+  - Base Tower
   - Firewall
+  - Damage
+  - Speed
   - Antimalware
+  - Range
   m_RenderDataMap: {}
   m_Tag: DynamicHUD_Defender_Sprite_Atlas
   m_IsVariant: 0

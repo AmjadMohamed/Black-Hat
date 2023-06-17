@@ -16,7 +16,7 @@ MonoBehaviour:
   CardImage: {fileID: 0}
   MalwareName: Ransomware
   AttackDamage: 10
-  MovementSpeed: 2.5
+  MovementSpeed: 4
   Health: 140
   Shield: 140
   EnergyCost: 120

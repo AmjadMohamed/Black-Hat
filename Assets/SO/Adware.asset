@@ -16,8 +16,8 @@ MonoBehaviour:
   CardImage: {fileID: 0}
   MalwareName: Adware
   AttackDamage: 12
-  MovementSpeed: 1
-  Health: 180
+  MovementSpeed: 2.5
+  Health: 220
   Shield: 110
   EnergyCost: 100
   Range: 5

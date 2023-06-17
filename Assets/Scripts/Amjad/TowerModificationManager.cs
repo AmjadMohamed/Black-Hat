@@ -57,6 +57,10 @@ public class TowerModificationManager : MonoBehaviour
                     if (ObjectEnergyCost <= EnergyManager.Instance._energy)
                     {
                         hit.transform.GetComponent<Tower>().ModifyTower(TowerModifications);
+                        if (TowerModifications.SpawnSFX != null)
+                        {
+                            SoundManager.Instance.PlaySoundEffect(TowerModifications.SpawnSFX);
+                        }
                         EnergyManager.Instance.DecreaseEnergy(ObjectEnergyCost);
                     }
                 }
