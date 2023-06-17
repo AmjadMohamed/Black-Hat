@@ -5,7 +5,7 @@ public class VideoPlayerLoop : MonoBehaviour
 {
     public VideoClip videoClip;  // Reference to the video clip to be played
     public bool isLooping = true;  // Whether the video should loop
-    public bool mute = false;  // Whether the audio should be muted
+    //public bool mute = false;  // Whether the audio should be muted
 
     private VideoPlayer videoPlayer;  // Reference to the VideoPlayer component
 
@@ -23,7 +23,7 @@ public class VideoPlayerLoop : MonoBehaviour
         // Set the mute flag
         videoPlayer.audioOutputMode = VideoAudioOutputMode.AudioSource;
         videoPlayer.SetTargetAudioSource(0, GetComponent<AudioSource>());
-        GetComponent<AudioSource>().mute = mute;
+        //GetComponent<AudioSource>().mute = mute;
 
         // Start playing the video
         videoPlayer.Play();
