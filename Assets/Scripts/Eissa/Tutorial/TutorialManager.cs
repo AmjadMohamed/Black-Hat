@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class TutorialManager : MonoBehaviour
 {
@@ -100,10 +101,6 @@ public class TutorialManager : MonoBehaviour
 
     private void Update()
     {
-        if (towerModifications != null)
-        {
-            print(towerModifications.ModificationName);
-        }
         if (_closedTheTutorialPanel)
         {
             switch (_currentIndex)
@@ -124,10 +121,19 @@ public class TutorialManager : MonoBehaviour
                     EnableTheMalwareSpawningTutorial();
                     break;
                 case 5: // for teaching the player about tower Placement
-                    EnableTheTowerPlacementTutorial();
+                    
                     break;
                 case 6: // for teaching the player about tower modifications
+                    EnableTheTowerPlacementTutorial();
+                    break;
+                case 7: // for teaching the player about tower modifications
                     EnableTheTowerModificationsTutorial();
+                    break;
+                case 8: // for teaching the player about tower modifications
+                    
+                    break;
+                case 9: // for teaching the player about tower modifications
+                    
                     break;
             }
         }
@@ -251,6 +257,11 @@ public class TutorialManager : MonoBehaviour
     private void EnableTheAbilitySpawningTutorial()
     {
        
+    }
+
+    public void EndTheTutorial()
+    {
+        SceneManager.LoadScene(0);
     }
 
     #endregion
