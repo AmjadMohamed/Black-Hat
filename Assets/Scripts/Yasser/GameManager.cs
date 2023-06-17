@@ -1,5 +1,6 @@
 using ExitGames.Client.Photon;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 
 public class GameManager : MonoBehaviourPunCallbacks
@@ -49,14 +50,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void UpdateUI()
     {
-        //timerGameObject.SetActive(true);
-
-        //UILayer.Instance.roundText.gameObject.SetActive(true);
+        UILayer.Instance.ads.gameObject.SetActive(false);
         UILayer.Instance.roundText.text = "Round: " + MatchManager.Instance.currentRound;
-
-        // Just for Debugging purposes and most likely gonna change the workflow entirely
-        //UILayer.Instance.p1WinsText.gameObject.SetActive(true);
-        //UILayer.Instance.p2WinsText.gameObject.SetActive(true);
 
         UILayer.Instance.p1NameText.text = (string)PhotonNetwork.PlayerList[0].CustomProperties[CustomKeys.User_Name];
         UILayer.Instance.p2NameText.text = (string)PhotonNetwork.PlayerList[1].CustomProperties[CustomKeys.User_Name];

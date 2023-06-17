@@ -5,7 +5,12 @@ public class TouchInputManager : MonoBehaviour
     private static TouchInputManager instance;
     [SerializeField] private LayerMask mouseColliderLayerMask = new LayerMask();
 
-    public Camera camera;
+    public Camera _camera;
+
+    private void Start()
+    {
+        _camera = Camera.main;
+    }
 
     public static TouchInputManager Instance
     {
@@ -38,7 +43,7 @@ public class TouchInputManager : MonoBehaviour
         }
 
         instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     public bool HasTouchInput()
@@ -54,7 +59,7 @@ public class TouchInputManager : MonoBehaviour
         {
             Touch touch = Input.GetTouch(touchIndex);
 
-            Ray ray = camera.ScreenPointToRay(touch.position);
+            Ray ray = _camera.ScreenPointToRay(touch.position);
 
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, 999f, mouseColliderLayerMask))
@@ -64,6 +69,8 @@ public class TouchInputManager : MonoBehaviour
             else
             {
                 GridBuildingSystem3D.Instance.DeselectObjectType();
+                transform.position = new Vector3(0, 0, 0);
+                GridBuildingSystem3D.Instance.counter= 0;
             }
         }
 
@@ -85,8 +92,7 @@ public class TouchInputManager : MonoBehaviour
         {
             Touch touch = Input.GetTouch(touchIndex);
 
-            Ray ray = camera.ScreenPointToRay(touch.position);
-            bool found = true;
+            Ray ray = _camera.ScreenPointToRay(touch.position);
 
             RaycastHit[] hits = Physics.SphereCastAll(ray, 0.5f, 999f, mouseColliderLayerMask);
 

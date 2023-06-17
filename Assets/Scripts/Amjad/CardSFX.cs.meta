@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 85490b9b20fcfe348af87c6f0091c133
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - CardClickSFX: {fileID: 8300000, guid: 7394a4967b18cc546b49943f070cb4c3, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -19,7 +19,11 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.GameVersion = "v0.2";
-        PhotonNetwork.ConnectUsingSettings();
+
+        if (!PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.ConnectUsingSettings();
+        }
 
         if (!_instance)
         {
@@ -60,6 +64,7 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.InRoom)
         {
+            MatchManager.Instance.InGame = false;
             PhotonNetwork.LeaveRoom();
         }
     }

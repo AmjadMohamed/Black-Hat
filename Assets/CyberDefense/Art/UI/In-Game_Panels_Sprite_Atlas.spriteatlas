@@ -23,7 +23,7 @@ SpriteAtlas:
     platformSettings:
     - serializedVersion: 3
       m_BuildTarget: Android
-      m_MaxTextureSize: 1024
+      m_MaxTextureSize: 2048
       m_ResizeAlgorithm: 0
       m_TextureFormat: 50
       m_TextureCompression: 1
@@ -33,14 +33,26 @@ SpriteAtlas:
       m_Overridden: 1
       m_AndroidETC2FallbackOverride: 0
       m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
     packingSettings:
       serializedVersion: 2
-      padding: 4
+      padding: 8
       blockOffset: 1
       allowAlphaSplitting: 0
-      enableRotation: 1
-      enableTightPacking: 1
-      enableAlphaDilation: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 1
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
@@ -50,17 +62,39 @@ SpriteAtlas:
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: 21300000, guid: 5fd63e08716aeb146ad9e4f079b8a88c, type: 3}
-  - {fileID: 21300000, guid: fde54039ecdbc8049aa4f0a3f6cc5135, type: 3}
-  - {fileID: 21300000, guid: 059a9aaad4af4044e9b5d4594a9fb5e2, type: 3}
-  - {fileID: 21300000, guid: 734f56bcbc0565f4585a64b3222fb661, type: 3}
-  - {fileID: 21300000, guid: c3a1a29e593462b49a28b91b5504487c, type: 3}
+  - {fileID: 21300000, guid: ce328ed0a8231694bbcc360d42ef855f, type: 3}
+  - {fileID: 21300000, guid: a46200e11d5074b4b99af016961adc0f, type: 3}
+  - {fileID: 21300000, guid: 3910910380ac10840bd750ce198764dd, type: 3}
+  - {fileID: 21300000, guid: 535f67b3d98e68a4ea1ccadfaf03ef48, type: 3}
+  - {fileID: 21300000, guid: 6ca5fc253627edf4499777af6f123a86, type: 3}
+  - {fileID: 21300000, guid: 1a6845a6fd679074ebc09a95077eb1da, type: 3}
+  - {fileID: 21300000, guid: 5878a9574e97ad94b84269e7acc03946, type: 3}
+  - {fileID: 21300000, guid: 434d9ad70785adc4a9b1fce3131fb730, type: 3}
+  - {fileID: 21300000, guid: f0cdfb89647e97a4a93783f208b31e8e, type: 3}
+  - {fileID: 21300000, guid: 7a237999d61b8d240b5a37a89ff322c7, type: 3}
+  - {fileID: 21300000, guid: d1ce549ad16aeaf488044aec419f1173, type: 3}
+  - {fileID: 21300000, guid: f3141cccf72aa094ebefde0f7f301911, type: 3}
+  - {fileID: 21300000, guid: db2f5b1df26a6de4a998df42de831a6c, type: 3}
+  - {fileID: 21300000, guid: 8ce244fdb32a048478cc68e054999f44, type: 3}
+  - {fileID: 21300000, guid: f65f1efd7ce8c71429f36cbf02b11fa6, type: 3}
+  - {fileID: 21300000, guid: e103adee311de4645bd0f4b054a9a7a5, type: 3}
   m_PackedSpriteNamesToIndex:
-  - Pause UI
-  - AD2
-  - AD1
-  - AD3
-  - AD4
+  - Pause_HardEdge
+  - Victory
+  - Random Error
+  - Layer 80
+  - error
+  - Arrows
+  - Hardware Conflict_
+  - discount
+  - Layer 97
+  - Click here
+  - Defeat
+  - Pause
+  - BMX_
+  - X button
+  - "Run as fast as you can and don\u2019t look back_"
+  - Incoming Gift_
   m_RenderDataMap: {}
   m_Tag: In-Game_Panels_Sprite_Atlas
   m_IsVariant: 0

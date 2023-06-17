@@ -1,12 +1,9 @@
-using System.Collections.Generic;
 using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Random = UnityEngine.Random;
-using UnityEngine.SceneManagement;
 
 public class MatchManager : MonoBehaviourPunCallbacks
 {
@@ -19,6 +16,8 @@ public class MatchManager : MonoBehaviourPunCallbacks
 
     public const byte MiningUsedEventCode = 4;
     public const byte AdwareAbilityEventCode = 5;
+    public const byte SurrenderEventCode = 6;
+    public const byte GameEndEventCode = 7;
 
     #endregion
 
@@ -34,6 +33,7 @@ public class MatchManager : MonoBehaviourPunCallbacks
     public static MatchManager Instance { get; private set; }
     public string MAIN_MENU_SCENE_NAME;
     public string GAMEPLAY_SCENE_NAME;
+    public AudioClip endgameClip;
 
     #endregion
 
@@ -46,6 +46,7 @@ public class MatchManager : MonoBehaviourPunCallbacks
     private int _p1Energy;
     private int _p2Energy;
     private bool _disconnected = true;
+    public bool InGame;
 
     #endregion
 
@@ -82,13 +83,9 @@ public class MatchManager : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        if (SceneManager.GetActiveScene().name == MatchManager.Instance.GAMEPLAY_SCENE_NAME)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            // TODO: Profiler: cache this list
-            if (PhotonNetwork.PlayerList.Length < 2)
-            {
-                DisconnectPlayersRaiseEvent();
-            }
+            EndRound(true);
         }
     }
 
@@ -140,15 +137,19 @@ public class MatchManager : MonoBehaviourPunCallbacks
         StartMatch();
     }
 
-    public override void OnDisconnected(DisconnectCause cause)
+    public override void OnLeftRoom()
     {
-        if (_disconnected && SceneManager.GetActiveScene().name == GAMEPLAY_SCENE_NAME)
+        if (_disconnected && InGame)
         {
             DisconnectPlayersRaiseEvent();
             UILayer.Instance.EnableDisconnectionPanel();
         }
-
         ResetMatch();
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        DisconnectPlayersRaiseEvent();
     }
 
     #endregion
@@ -263,30 +264,12 @@ public class MatchManager : MonoBehaviourPunCallbacks
 
     private void StateWinner()
     {
-        for (int i = 0; i < PhotonNetwork.PlayerList.Length;)
-        {
-            if ((int)PhotonNetwork.PlayerList[0].CustomProperties[CustomKeys.WINS] >
-                (int)PhotonNetwork.PlayerList[1].CustomProperties[CustomKeys.WINS])
-            {
-                UILayer.Instance.GameEndedPanel.SetActive(true);
-                UILayer.Instance.winnerText.text = $"<color=yellow>{(string)PhotonNetwork.PlayerList[0].CustomProperties[CustomKeys.User_Name]}</color> Won The Game";
-                SetPlayerDisconnected(false);
-                PhotonNetwork.Disconnect();
-            }
-            else if ((int)PhotonNetwork.PlayerList[0].CustomProperties[CustomKeys.WINS] <
-                     (int)PhotonNetwork.PlayerList[1].CustomProperties[CustomKeys.WINS])
-            {
-                UILayer.Instance.GameEndedPanel.SetActive(true);
-                UILayer.Instance.winnerText.text = $"<color=yellow>{(string)PhotonNetwork.PlayerList[1].CustomProperties[CustomKeys.User_Name]}</color> Won The Game";
-                SetPlayerDisconnected(false);
-                PhotonNetwork.Disconnect();
-            }
+        SetPlayerDisconnected(false);
 
-            break;
-        }
+        if (PhotonNetwork.IsMasterClient)
+            UILayer.Instance.EnableEndgamePanelRaiseEvent();
     }
 
-    // All
     private void SwitchSides(EventData obj)
     {
         if (obj.Code == RoundEndedEventCode)
@@ -295,7 +278,12 @@ public class MatchManager : MonoBehaviourPunCallbacks
 
             if (currentRound >= WINS_REQUIRED)
             {
-                StateWinner();
+                if ((int)PhotonNetwork.LocalPlayer.CustomProperties[CustomKeys.WINS] !=
+                    (int)PhotonNetwork.PlayerListOthers[0].CustomProperties[CustomKeys.WINS])
+                {
+                    StateWinner();
+                    return;
+                }
             }
 
             StartCoroutine(UILayer.Instance.EnableSwitchingSidesPanel(1));
@@ -328,7 +316,11 @@ public class MatchManager : MonoBehaviourPunCallbacks
     {
         if (obj.Code == DisconnectPlayersEventCode)
         {
-            PhotonNetwork.Disconnect();
+            if (PhotonNetwork.InRoom)
+            {
+                InGame = true;
+                PhotonNetwork.LeaveRoom();
+            }
         }
     }
 

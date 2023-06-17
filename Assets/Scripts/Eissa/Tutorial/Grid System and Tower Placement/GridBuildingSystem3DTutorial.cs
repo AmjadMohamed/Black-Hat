@@ -93,7 +93,7 @@ public class GridBuildingSystem3DTutorial : MonoBehaviour
                 }
                 else
                 {
-                    mousePosition = Mouse3D.Instance.GetMouseWorldPosition();
+                    mousePosition = Mouse3DTutorial.Instance.GetMouseWorldPosition();
                 }
 
                 grid.GetXZ(mousePosition, out int x, out int z);
@@ -119,7 +119,7 @@ public class GridBuildingSystem3DTutorial : MonoBehaviour
                 }
                 else
                 {
-                    RayCastCheck = Mouse3D.Instance.CANBUILD();
+                    RayCastCheck = Mouse3DTutorial.Instance.CANBUILD();
                 }
                 if (canBuild && RayCastCheck)
                 {
@@ -142,6 +142,13 @@ public class GridBuildingSystem3DTutorial : MonoBehaviour
                 else
                 {
                     // Cannot build here
+                    if(towerBase)
+                    {
+                        if(towerBase.InvalidPlacementSFX)
+                        {
+                            SoundManager.Instance.PlaySoundEffect(towerBase.InvalidPlacementSFX);
+                        }
+                    }
                     UtilsClass.CreateWorldTextPopup("Cannot Build Here!", new Vector3(mousePosition.x-12, mousePosition.y, mousePosition.z));
                     DeselectObjectType();
                 }
@@ -152,7 +159,7 @@ public class GridBuildingSystem3DTutorial : MonoBehaviour
 
     }
 
-    private void DeselectObjectType() {
+    public void DeselectObjectType() {
         placedObjectTypeSO = null; 
         RefreshSelectedObjectType();
     }
@@ -175,7 +182,7 @@ public class GridBuildingSystem3DTutorial : MonoBehaviour
         }
         else
         {
-            mousePosition =  Mouse3D.Instance.GetMouseWorldPosition();
+            mousePosition =  Mouse3DTutorial.Instance.GetMouseWorldPosition();
         }
         grid.GetXZ(mousePosition, out int x, out int z);
         if (placedObjectTypeSO != null) {

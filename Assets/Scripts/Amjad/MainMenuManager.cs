@@ -5,6 +5,7 @@ using Photon.Realtime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -56,6 +57,12 @@ public class MainMenuManager : MonoBehaviour
     {
         _welcomePanel.SetActive(false);
         PlayerPrefs.SetString("NickName", _ifPlayerNickName.text);
+        LoadTutorialLevel();
+    }
+
+    public void LoadTutorialLevel()
+    {
+        SceneManager.LoadScene(2);
     }
 
     public void CreateOrJoinRoom(TMP_InputField RoomName)
@@ -94,11 +101,6 @@ public class MainMenuManager : MonoBehaviour
         {
             StartCoroutine(RejoinCoroutine());
         }
-    }
-
-    public void Options()
-    {
-
     }
 
     public void ExitGame()

@@ -15,7 +15,12 @@ public class TowerModificationManager : MonoBehaviour
     public static TowerModificationManager Instance => _instance;
     [HideInInspector] public TowerModifications TowerModifications;
     [HideInInspector] public int ObjectEnergyCost;
-    public Camera camera;
+    private Camera _camera;
+
+    private void Awake()
+    {
+        _camera = Camera.main;
+    }
 
     void Start()
     {
@@ -40,7 +45,7 @@ public class TowerModificationManager : MonoBehaviour
 
     void ApplyModificationToTower(Vector3 position)
     {
-        Ray ray = camera.ScreenPointToRay(position);
+        Ray ray = _camera.ScreenPointToRay(position);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit))

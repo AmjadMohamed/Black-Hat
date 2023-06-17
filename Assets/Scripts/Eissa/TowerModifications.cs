@@ -16,4 +16,5 @@ public class TowerModifications : ScriptableObject
     public GameObject towerIcon;
     public AudioClip ShootingSFX;
     public AudioClip SpawnSFX;
+    public AudioClip InvalidPlacementSFX;
 }

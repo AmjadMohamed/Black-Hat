@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class TutorialManager : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private float rotateDelay = 1f; // Delay in seconds before allowing rotation after zooming
     [SerializeField] private float minSwipeDistance = 1; // Minimum swipe distance required for rotation
     [SerializeField] private GameObject _camera;
+    [SerializeField] private BuildingGhostTutorial buildingGhostTutorial;
     private Camera camera;
 
     private Vector3 previousMousePosition;
@@ -51,6 +53,7 @@ public class TutorialManager : MonoBehaviour
     private int spwanedMalwareNumber;
     [SerializeField] private int requiredNumberOfMalware = 12;
     [SerializeField] private GameObject malwareParent;
+    [SerializeField] private List<GameObject> SpwanPoints = new List<GameObject>();
 
     #endregion
 
@@ -70,6 +73,8 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private GameObject towerParent;
     [HideInInspector] public int towerCounter;
     private int RequierdTowerNumber = 3;
+    private int _modificationCounter;
+    private int requierdModificationNumber = 3;
     #endregion
 
     #region UI
@@ -89,20 +94,15 @@ public class TutorialManager : MonoBehaviour
             _instance = this;
         }
 
-      
         ResettingTheGameVariables();
         SwitchThePopupsOnAndOff();
-        
+        SwitchRelatedGameObjectsToTheCurrentTutorial();
         
         camera = Camera.main;
     }
 
     private void Update()
     {
-        if (towerModifications != null)
-        {
-            print(towerModifications.ModificationName);
-        }
         if (_closedTheTutorialPanel)
         {
             switch (_currentIndex)
@@ -116,17 +116,26 @@ public class TutorialManager : MonoBehaviour
                 case 2: // for teaching camera rotation
                     EnableTheRotationsTutorial();
                     break;
+                case 3: // for teach the player about the two sides
+                    
+                    break;
                 case 4: // for teaching Spawning the malware
                     EnableTheMalwareSpawningTutorial();
                     break;
-                case 10: 
-                    EnableTheAbilitySpawningTutorial();
-                    break;;
-                case 5: // for teaching the player about tower Placement
+                case 5: // 
+                    
+                    break;
+                case 6: // for teaching the player about tower Placement
                     EnableTheTowerPlacementTutorial();
                     break;
-                case 6: // for teaching the player about tower modifications
+                case 7: // for teaching the player about tower modifications
                     EnableTheTowerModificationsTutorial();
+                    break;
+                case 8: // for teaching the player about the tower modiications diffrences
+                    
+                    break;
+                case 9: // for ending the tutorial and send the player to the main menu
+                    
                     break;
             }
         }
@@ -157,17 +166,26 @@ public class TutorialManager : MonoBehaviour
     {
         if (!EventSystem.current.IsPointerOverGameObject())
         {
-            HandleCameraRotation();
+            if (buildingGhostTutorial.visual == null)
+            {
+                HandleCameraRotation();
+            }
             HandleCameraZoom();
         }
     }
 
     private void EnableTheMalwareSpawningTutorial()
     {
-        UI.SetActive(true);
+        if (!UI.activeInHierarchy)
+        {
+            UI.SetActive(true);
+        }
         towerManager.SetActive(false);
         defenderPanel.SetActive(false);
-        attackerPanel.SetActive(true);
+        if (!attackerPanel.activeInHierarchy)
+        {
+            attackerPanel.SetActive(true);
+        }
 
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
@@ -192,10 +210,17 @@ public class TutorialManager : MonoBehaviour
 
     private void EnableTheTowerPlacementTutorial()
     {
-        UI.SetActive(true);
+        if (!UI.activeInHierarchy)
+        {
+            UI.SetActive(true);
+
+        }
         attackerPanel.SetActive(false);
-        defenderPanel.SetActive(true);
-        towerManager.SetActive(true);
+        if (!defenderPanel.activeInHierarchy)
+        {
+            defenderPanel.SetActive(true);
+            towerManager.SetActive(true);
+        }
         EnableTheZoomAndRotationsTutorial();
         if (towerCounter > RequierdTowerNumber)
         {
@@ -209,20 +234,43 @@ public class TutorialManager : MonoBehaviour
 
     private void EnableTheTowerModificationsTutorial()
     {
-        UI.SetActive(true);
-        attackerPanel.SetActive(false);
-        SwitchingTheModificationCardUI(true);
-        defenderPanel.SetActive(true);
-        towerManager.SetActive(true);
+        if (!UI.activeInHierarchy)
+        {
+            UI.SetActive(true);
 
-        GetInputForTowerModifications();
+        }
+        attackerPanel.SetActive(false);
+        if (!defenderPanel.activeInHierarchy)
+        {
+            defenderPanel.SetActive(true);
+            towerManager.SetActive(true);
+        }
+
+        if (!TowerModificationsUI[0].activeInHierarchy)
+        {
+            SwitchingTheModificationCardUI(true);
+        }
+
         EnableTheZoomAndRotationsTutorial();
+        GetInputForTowerModifications();
+        if (_modificationCounter>= requierdModificationNumber)
+        {
+            if (_timeBetweenTutorialCoroutine == null)
+            {
+                _timeBetweenTutorialCoroutine = StartCoroutine(FinishTheCurrentTutorial(2f));
+            }
+        }
 
     }
 
     private void EnableTheAbilitySpawningTutorial()
     {
        
+    }
+
+    public void EndTheTutorial()
+    {
+        SceneManager.LoadScene(0);
     }
 
     #endregion
@@ -240,6 +288,31 @@ public class TutorialManager : MonoBehaviour
             {
                 popups[i].gameObject.SetActive(false);
             }
+        }
+    }
+
+    void SwitchRelatedGameObjectsToTheCurrentTutorial()
+    {
+        switch (_currentIndex)
+        {
+            case 0:
+                foreach (var spawnPoint in SpwanPoints)
+                {
+                    spawnPoint.SetActive(false);
+                }
+                break;
+            case 4:
+                foreach (var spawnPoint in SpwanPoints)
+                {
+                    spawnPoint.SetActive(true);
+                }
+                break;
+            case 6:
+                foreach (var spawnPoint in SpwanPoints)
+                {
+                    spawnPoint.SetActive(false);
+                }
+                break;
         }
     }
 
@@ -462,8 +535,10 @@ public class TutorialManager : MonoBehaviour
                 {
                     hit.transform.GetComponent<TowerTutorial>().ModifyTower(towerModifications);
                     _currentEnergy -= towerModifications.EnergyCost;
+                    _modificationCounter++;
+                    towerModifications = null;
                 }
-                
+                towerModifications = null;
             }
         }
     }
@@ -493,6 +568,7 @@ public class TutorialManager : MonoBehaviour
         attackerPanel.SetActive(false);
         towerCounter = 0;
         spwanedMalwareNumber = 0;
+        _modificationCounter = 0;
         DestroyAllTheSpawnedMalware();
         _currentEnergy = maxEnergy;
         malwareIndex = int.MaxValue;
@@ -503,6 +579,7 @@ public class TutorialManager : MonoBehaviour
         yield return new WaitForSeconds(_timeBetweenTutorials);
         _currentIndex++;
         SwitchThePopupsOnAndOff();
+        SwitchRelatedGameObjectsToTheCurrentTutorial();
         ResettingTheGameVariables();
         _timeBetweenTutorialCoroutine = null;
         _closedTheTutorialPanel = false;

@@ -1,20 +1,24 @@
+using ExitGames.Client.Photon;
 using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class UILayer : MonoBehaviour
+public class UILayer : MonoBehaviourPunCallbacks
 {
     #region Serialized Fields
 
-    [SerializeField] private Canvas attackerUI;
-    [SerializeField] private Canvas defenderUI;
+    [SerializeField] private GameObject[] uiToDisable;
+    [SerializeField] private GameObject attackerUI;
+    [SerializeField] private GameObject defenderUI;
     [SerializeField] private GameObject switchingSidesPanel;
     [SerializeField] private TMP_Text roundNumText;
     [SerializeField] private TMP_Text attackerDefenderTurnText;
-    [SerializeField] private GameObject ads;
+    public GameObject ads;
     [SerializeField] private GameObject matchDisconnetedPanel;
+    private bool _surrendered;
 
     #endregion
 
@@ -25,8 +29,8 @@ public class UILayer : MonoBehaviour
     public TextMeshProUGUI p1NameText;
     public TextMeshProUGUI p2WinsText;
     public TextMeshProUGUI p2NameText;
-    public TMP_Text winnerText;
-    public GameObject GameEndedPanel;
+    public GameObject VictoryPanel;
+    public GameObject DefeatPanel;
 
     public static UILayer Instance { get; private set; }
 
@@ -49,27 +53,46 @@ public class UILayer : MonoBehaviour
         StartCoroutine(EnableSwitchingSidesPanel(0));
     }
 
+    public override void OnEnable()
+    {
+        base.OnEnable();
+        PhotonNetwork.NetworkingClient.EventReceived += EnableEndgamePanel;
+        PhotonNetwork.NetworkingClient.EventReceived += Surrender;
+    }
+
+    public override void OnDisable()
+    {
+        base.OnDisable();
+        PhotonNetwork.NetworkingClient.EventReceived -= EnableEndgamePanel;
+        PhotonNetwork.NetworkingClient.EventReceived -= Surrender;
+    }
+
+    private void Start()
+    {
+        _surrendered = false;
+    }
+
     #endregion
 
     #region Public Methods
 
     public void LoadPlayerUI(MatchManager.Side side)
     {
-        if (attackerUI.enabled || defenderUI.enabled)
+        if(attackerUI.activeSelf|| defenderUI.activeSelf)
         {
-            attackerUI.enabled = false;
-            defenderUI.enabled = false;
+            attackerUI.SetActive(false);
+            defenderUI.SetActive(false);
         }
 
-        switch (side)
+        switch(side)
         {
             case MatchManager.Side.Attacker:
-                defenderUI.enabled = false;
-                attackerUI.enabled = true;
+                defenderUI.SetActive(false);
+                attackerUI.SetActive(true);
                 break;
             case MatchManager.Side.Defender:
-                attackerUI.enabled = false;
-                defenderUI.enabled = true;
+                defenderUI.SetActive(true);
+                attackerUI.SetActive(false);
                 break;
         }
     }
@@ -79,11 +102,11 @@ public class UILayer : MonoBehaviour
         roundNumText.text = $"Round: {MatchManager.Instance.currentRound + increment}";
         if ((MatchManager.Side)PhotonNetwork.LocalPlayer.CustomProperties[CustomKeys.P_SIDE] == MatchManager.Side.Attacker)
         {
-            attackerDefenderTurnText.text = "Now You Are An <color=red>Attacker</color>";
+            attackerDefenderTurnText.text = "<color=red>Attacker</color>";
         }
         else
         {
-            attackerDefenderTurnText.text = "Now You Are A <color=blue>Defender</color>";
+            attackerDefenderTurnText.text = "<color=blue>Defender</color>";
         }
 
 
@@ -92,18 +115,26 @@ public class UILayer : MonoBehaviour
         switchingSidesPanel.GetComponent<PanelsDotween>().HidePanel();
     }
 
-    public void ReturnToMainMenu()
+    private void ReturnToMainMenu()
     {
-        if (PhotonNetwork.IsConnected)
+        if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.Disconnect();
+            PhotonNetwork.LoadLevel(MatchManager.Instance.MAIN_MENU_SCENE_NAME);
+            MatchManager.Instance.InGame = false;
+            PhotonNetwork.LeaveRoom();
         }
-        SceneManager.LoadScene(0);
-        Destroy(gameObject, 1);
+        Destroy(gameObject);
     }
 
     public void ShowAds()
     {
+        foreach (Transform AD in ads.transform)
+        {
+            AD.gameObject.SetActive(false);
+        }
+        ads.SetActive(false);
+
+
         foreach (Transform AD in ads.transform)
         {
             AD.gameObject.SetActive(true);
@@ -116,6 +147,41 @@ public class UILayer : MonoBehaviour
         if (SceneManager.GetActiveScene().name == MatchManager.Instance.GAMEPLAY_SCENE_NAME)
         {
             StartCoroutine(EnableDisconnectedPanel());
+        }
+    }
+
+    public void EnableEndgamePanelRaiseEvent()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+            PhotonNetwork.RaiseEvent(MatchManager.GameEndEventCode, null, raiseEventOptions, SendOptions.SendReliable);
+        }
+    }
+
+    private void SurrenderUI(GameObject endgamePanel)
+    {
+        StartCoroutine(EnableGameEndedPanel(endgamePanel));
+    }
+
+    private void EnableEndgamePanel(EventData obj)
+    {
+        if (obj.Code == MatchManager.GameEndEventCode)
+        {
+            GameObject endgamePanel = null;
+
+            if ((int)PhotonNetwork.LocalPlayer.CustomProperties[CustomKeys.WINS] >
+                (int)PhotonNetwork.PlayerListOthers[0].CustomProperties[CustomKeys.WINS])
+            {
+                endgamePanel = VictoryPanel;
+            }
+            else if ((int)PhotonNetwork.LocalPlayer.CustomProperties[CustomKeys.WINS] <
+                     (int)PhotonNetwork.PlayerListOthers[0].CustomProperties[CustomKeys.WINS])
+            {
+                endgamePanel = DefeatPanel;
+            }
+
+            StartCoroutine(EnableGameEndedPanel(endgamePanel));
         }
     }
 
@@ -132,5 +198,54 @@ public class UILayer : MonoBehaviour
         Destroy(gameObject, .5f);
     }
 
+    private IEnumerator EnableGameEndedPanel(GameObject endgamePanel)
+    {
+        endgamePanel.SetActive(true);
+        SoundManager.Instance.PlaySoundEffect(MatchManager.Instance.endgameClip);
+        //SoundManager.Instance.StopBackgroundMusic();
+
+        foreach (GameObject ui in uiToDisable)
+        {
+            ui.SetActive(false);
+        }
+
+        DisableUI disableUI = FindObjectOfType<DisableUI>();
+        disableUI.DisableUIElements();
+
+        yield return new WaitForSeconds(3.0f);
+        endgamePanel.SetActive(false);
+
+        ReturnToMainMenu();
+    }
+
     #endregion
+
+
+    private void SurrenderRaiseEvent()
+    {
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(MatchManager.SurrenderEventCode, null, raiseEventOptions, SendOptions.SendReliable);
+    }
+
+    private void Surrender(EventData obj)
+    {
+        if (obj.Code == MatchManager.SurrenderEventCode)
+        {
+            MatchManager.Instance.SetPlayerDisconnected(false);
+            if (_surrendered)
+            {
+               SurrenderUI(DefeatPanel);
+            }
+            else
+            {
+                SurrenderUI(VictoryPanel);
+            }
+        }
+    }
+
+    public void Surrender()
+    {
+        _surrendered = true;
+        SurrenderRaiseEvent();
+    }
 }

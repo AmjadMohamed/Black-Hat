@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class Tower : MonoBehaviourPun 
+public class Tower : MonoBehaviourPun
 {
     private float _maxHealth;
     [SerializeField] private float _currentHealth;
@@ -24,6 +24,10 @@ public class Tower : MonoBehaviourPun
 
     private void Start()
     {
+        if (baseTowerSo.SpawnSFX != null)
+        {
+            SoundManager.Instance.PlaySoundEffect(baseTowerSo.SpawnSFX);
+        }
         ModifyTower(baseTowerSo);
         _currentHealth = _maxHealth;
         healthBarSlider.value = 1;
@@ -62,10 +66,10 @@ public class Tower : MonoBehaviourPun
             GridBuildingSystem3D.Instance.deleteObjectFromGrid(this.transform.position);
         }
     }
-    
+
     private void UpdateHealthBar()
     {
-        float healthPercentage  = (_currentHealth / _maxHealth) * 100;
+        float healthPercentage = (_currentHealth / _maxHealth) * 100;
         DOTween.To(() => healthBarSlider.value, x => healthBarSlider.value = x, healthPercentage / 100f, 1f);
     }
 
@@ -90,6 +94,6 @@ public class Tower : MonoBehaviourPun
     }
 
     #endregion
-    
-    
+
+
 }

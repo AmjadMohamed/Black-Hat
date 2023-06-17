@@ -23,7 +23,7 @@ SpriteAtlas:
     platformSettings:
     - serializedVersion: 3
       m_BuildTarget: Android
-      m_MaxTextureSize: 1024
+      m_MaxTextureSize: 512
       m_ResizeAlgorithm: 0
       m_TextureFormat: 50
       m_TextureCompression: 1
@@ -33,14 +33,26 @@ SpriteAtlas:
       m_Overridden: 1
       m_AndroidETC2FallbackOverride: 0
       m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
     packingSettings:
       serializedVersion: 2
-      padding: 4
+      padding: 8
       blockOffset: 1
       allowAlphaSplitting: 0
-      enableRotation: 1
+      enableRotation: 0
       enableTightPacking: 1
-      enableAlphaDilation: 0
+      enableAlphaDilation: 1
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
@@ -50,18 +62,20 @@ SpriteAtlas:
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: 21300000, guid: 7e931a08fcb8ed4489c6e2f2b374b469, type: 3}
-  - {fileID: 21300000, guid: 2193ce19a4d1c3f4eba4f9aaf75c8d69, type: 3}
-  - {fileID: 21300000, guid: 106e86fa748e317408678398a3c4f22d, type: 3}
-  - {fileID: 21300000, guid: 61bc3f7b9ff80dd4b8a093ca35452322, type: 3}
-  - {fileID: 21300000, guid: 860c2aeba32b99c48a9e1b5304e03aac, type: 3}
-  - {fileID: 21300000, guid: 41a041dc428d77d4bba22dc0811ae8e2, type: 3}
+  - {fileID: 21300000, guid: b0754640c127fa541bb503a16e230460, type: 3}
+  - {fileID: 21300000, guid: 9fadfae0a7ea5d446a831115f79d6171, type: 3}
+  - {fileID: 21300000, guid: b543f66155f888c4f9d23f571f5aa8a9, type: 3}
+  - {fileID: 21300000, guid: 0d730eb6d7813074e87dda5ecc8f7fba, type: 3}
+  - {fileID: 21300000, guid: 30d332487efbc4d46911801e07e55798, type: 3}
+  - {fileID: 21300000, guid: efcfd52c8bf9834469dda28a09460401, type: 3}
+  - {fileID: 21300000, guid: f69491cd60cb7e7468d27ac2d300eafe, type: 3}
   m_PackedSpriteNamesToIndex:
-  - NewBlankCard
-  - Energy
-  - Newest_Adware
-  - Newest_TrojanHorse
-  - Newest_Virus
+  - Adware
+  - Trojan_Horse
+  - Ransomware
+  - Mining
+  - Blank_Card
+  - Virus
   - ADS
   m_RenderDataMap: {}
   m_Tag: DynamicHUD_Attacker_Sprite_Atlas
