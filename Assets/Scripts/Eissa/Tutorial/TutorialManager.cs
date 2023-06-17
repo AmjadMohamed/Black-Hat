@@ -132,10 +132,10 @@ public class TutorialManager : MonoBehaviour
                     EnableTheTowerModificationsTutorial();
                     break;
                 case 8: // for teaching the player about the tower modiications diffrences
-                    
+                    EnableTheZoomAndRotationsTutorial();
                     break;
                 case 9: // for ending the tutorial and send the player to the main menu
-                    
+                    EnableTheZoomAndRotationsTutorial();
                     break;
             }
         }
@@ -270,6 +270,7 @@ public class TutorialManager : MonoBehaviour
 
     public void EndTheTutorial()
     {
+        //var name = SceneManager.GetSceneByPath("Scenes/Amjad/Main Menu 1").name;
         SceneManager.LoadScene(0);
     }
 
