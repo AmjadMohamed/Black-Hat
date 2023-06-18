@@ -140,7 +140,6 @@ public class TutorialManager : MonoBehaviour
             }
         }
         
-        print(_currentIndex);
         
     }
 
@@ -151,8 +150,6 @@ public class TutorialManager : MonoBehaviour
         if (!EventSystem.current.IsPointerOverGameObject())
         {
             HandleCameraZoom();
-            print("in case 0");
-            print(isZoomed);
         }
     }
     private void EnableTheRotationsTutorial()
@@ -369,7 +366,6 @@ public class TutorialManager : MonoBehaviour
                 {
                     StartCoroutine(FinishTheCurrentTutorial(2f));
                     isRotate = true;
-                    print("rotate");
                 }
             }
         }
@@ -470,7 +466,6 @@ public class TutorialManager : MonoBehaviour
             {
                 Vector3 spawnPosition = hit.point;
                 spawnPosition.y += .3f;
-                print("hit road");
                 if (malwareIndex < malware.Count && currentMalwareCost <= _currentEnergy)
                 {
                     Instantiate(malware[malwareIndex], spawnPosition, Quaternion.identity,malwareParent.transform);
@@ -496,7 +491,6 @@ public class TutorialManager : MonoBehaviour
         {
             if (_timeBetweenTutorialCoroutine == null)
             {
-                print("Spwaned all the malware");
                 _timeBetweenTutorialCoroutine = StartCoroutine(FinishTheCurrentTutorial(3f));
             }
         }
