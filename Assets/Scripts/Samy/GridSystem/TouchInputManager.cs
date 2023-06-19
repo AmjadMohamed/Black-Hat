@@ -68,9 +68,10 @@ public class TouchInputManager : MonoBehaviour
             }
             else
             {
-                GridBuildingSystem3D.Instance.DeselectObjectType();
-                transform.position = new Vector3(0, 0, 0);
-                GridBuildingSystem3D.Instance.counter= 0;
+                //GridBuildingSystem3D.Instance.DeselectObjectType();
+                //transform.position = new Vector3(0, 0, 0);
+                //GridBuildingSystem3D.Instance.counter= 0;
+                return Vector3.zero;
             }
         }
 

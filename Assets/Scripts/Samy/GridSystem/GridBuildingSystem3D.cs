@@ -111,7 +111,10 @@ public class GridBuildingSystem3D : MonoBehaviour
                     RayCastCheck = Mouse3D.Instance.CANBUILD();
 
                 }
-
+                if(mousePosition == Vector3.zero)
+                {
+                    return;
+                }
                 grid.GetXZ(mousePosition, out int x, out int z);
                 Vector2Int placedObjectOrigin = new Vector2Int(x, z);
                 placedObjectOrigin = grid.ValidateGridPosition(placedObjectOrigin);
