@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: 
   ModificationName: SSD
-  maxHealth: 250
+  maxHealth: 330
   EnergyCost: 450
   damage: 20
   range: 7
