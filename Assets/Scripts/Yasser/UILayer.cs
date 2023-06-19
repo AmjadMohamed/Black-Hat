@@ -50,7 +50,11 @@ public class UILayer : MonoBehaviourPunCallbacks
             DontDestroyOnLoad(gameObject);
         }
 
-        StartCoroutine(EnableSwitchingSidesPanel(0));
+        if (SceneManager.GetActiveScene().name == MatchManager.Instance.GAMEPLAY_SCENE_NAME)
+        {
+            StartCoroutine(EnableSwitchingSidesPanel(0));
+        }
+
     }
 
     public override void OnEnable()
