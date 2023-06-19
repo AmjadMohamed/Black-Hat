@@ -96,6 +96,10 @@ public class GridBuildingSystem3DTutorial : MonoBehaviour
                     mousePosition = Mouse3DTutorial.Instance.GetMouseWorldPosition();
                 }
 
+                if (mousePosition == Vector3.zero)
+                {
+                    return;
+                }
                 grid.GetXZ(mousePosition, out int x, out int z);
                 Vector2Int placedObjectOrigin = new Vector2Int(x, z);
                 placedObjectOrigin = grid.ValidateGridPosition(placedObjectOrigin);

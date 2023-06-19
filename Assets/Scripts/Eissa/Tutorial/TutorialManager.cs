@@ -72,9 +72,12 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private GameObject towerManager;
     [SerializeField] private GameObject towerParent;
     [HideInInspector] public int towerCounter;
-    private int RequierdTowerNumber = 3;
+    private int RequierdTowerNumber = 5;
     private int _modificationCounter;
     private int requierdModificationNumber = 3;
+    [SerializeField] private GameObject malwaresForTowerTutorial;
+    [SerializeField] private GameObject malwaresForTowerModificationsTutorial;
+    
     #endregion
 
     #region UI
@@ -309,8 +312,29 @@ public class TutorialManager : MonoBehaviour
                 foreach (var spawnPoint in SpwanPoints)
                 {
                     spawnPoint.SetActive(false);
+                    
+                }
+                foreach (Transform malware in malwaresForTowerTutorial.transform)
+                {
+                    malware.gameObject.SetActive(true);
                 }
                 break;
+            case 7:
+                foreach (var spawnPoint in SpwanPoints)
+                {
+                    spawnPoint.SetActive(false);
+                    
+                }
+                foreach (Transform malware in malwaresForTowerTutorial.transform)
+                {
+                    malware.gameObject.SetActive(false);
+                }
+                foreach (Transform malware in malwaresForTowerModificationsTutorial.transform)
+                {
+                    malware.gameObject.SetActive(true);
+                }
+                break;
+            
         }
     }
 
