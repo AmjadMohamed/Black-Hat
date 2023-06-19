@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class BaseTutorial : MonoBehaviour
 {
     public Slider healthBarSlider;
-    [SerializeField] private float _maxHealth = 100;
-    [SerializeField] private float _currentHealth;
+    [SerializeField] public float _maxHealth;
+    [SerializeField] public float _currentHealth;
     [SerializeField] private Material shieldMaterial;
     private void Start()
     {
@@ -18,26 +18,29 @@ public class BaseTutorial : MonoBehaviour
 
     public void TakeDamage(int dmg)
     {
-        _currentHealth -= dmg;
-        UpdateHealthBar();
-        CheckBaseHealth();
+        if (TutorialManager.Instance._currentIndex != 6)
+        {
+            _currentHealth -= dmg;
+            UpdateHealthBar();
+            CheckBaseHealth();
+        }
     }
 
-    private void UpdateHealthBar()
+    public void UpdateHealthBar()
     {
         float healthPercentage  = (_currentHealth / _maxHealth) * 100;
         DOTween.To(() => healthBarSlider.value, x => healthBarSlider.value = x, healthPercentage / 100f, 1f);
         float shieldDissolve = shieldMaterial.GetFloat("_DISSOLVE_ctrl");
         shieldDissolve = healthPercentage / 100;
         shieldMaterial.SetFloat("_DISSOLVE_ctrl", shieldDissolve);
+       
     }
 
     void CheckBaseHealth()
     {
         if (_currentHealth <= 0)
         {
-            TutorialManager.Instance._currentIndex++;
-            TutorialManager.Instance.SwitchThePopupsOnAndOff();
+            TutorialManager.Instance.NextTutorial();
             _currentHealth = _maxHealth;
             UpdateHealthBar();
         }

@@ -62,6 +62,7 @@ public class TutorialManager : MonoBehaviour
     [Space] [Header("Energy Variables")] 
     [SerializeField] private int maxEnergy;
     public int _currentEnergy;
+    [SerializeField] private BaseTutorial _baseTutorial;
 
     #endregion
 
@@ -76,7 +77,6 @@ public class TutorialManager : MonoBehaviour
     private int _modificationCounter;
     private int requierdModificationNumber = 3;
     [SerializeField] private GameObject malwaresForTowerTutorial;
-    [SerializeField] private GameObject malwaresForTowerModificationsTutorial;
     
     #endregion
 
@@ -108,6 +108,7 @@ public class TutorialManager : MonoBehaviour
     {
         if (_closedTheTutorialPanel)
         {
+            SwitchRelatedGameObjectsToTheCurrentTutorial();
             switch (_currentIndex)
             {
                 case 0: // the Welcome massage
@@ -141,6 +142,8 @@ public class TutorialManager : MonoBehaviour
                     EnableTheZoomAndRotationsTutorial();
                     break;
             }
+            
+
         }
         
         
@@ -222,6 +225,21 @@ public class TutorialManager : MonoBehaviour
             towerManager.SetActive(true);
         }
         EnableTheZoomAndRotationsTutorial();
+        bool IsAnyMalwareAlive = false;
+        foreach (Transform malwares in malwaresForTowerTutorial.transform)
+        {
+            if (malwares.gameObject.activeInHierarchy)
+            {
+                IsAnyMalwareAlive = true;
+            }
+        }
+        if (!IsAnyMalwareAlive)
+        {
+            if (_timeBetweenTutorialCoroutine == null)
+            {
+                _timeBetweenTutorialCoroutine = StartCoroutine(FinishTheCurrentTutorial(2f));
+            }
+        }
         if (towerCounter > RequierdTowerNumber)
         {
             if (_timeBetweenTutorialCoroutine == null)
@@ -309,14 +327,17 @@ public class TutorialManager : MonoBehaviour
                 }
                 break;
             case 6:
-                foreach (var spawnPoint in SpwanPoints)
+                if (_closedTheTutorialPanel)
                 {
-                    spawnPoint.SetActive(false);
+                    foreach (var spawnPoint in SpwanPoints)
+                    {
+                        spawnPoint.SetActive(false);
                     
-                }
-                foreach (Transform malware in malwaresForTowerTutorial.transform)
-                {
-                    malware.gameObject.SetActive(true);
+                    }
+                    foreach (Transform malware in malwaresForTowerTutorial.transform)
+                    {
+                        malware.gameObject.SetActive(true);
+                    }
                 }
                 break;
             case 7:
@@ -328,10 +349,6 @@ public class TutorialManager : MonoBehaviour
                 foreach (Transform malware in malwaresForTowerTutorial.transform)
                 {
                     malware.gameObject.SetActive(false);
-                }
-                foreach (Transform malware in malwaresForTowerModificationsTutorial.transform)
-                {
-                    malware.gameObject.SetActive(true);
                 }
                 break;
             
@@ -588,6 +605,8 @@ public class TutorialManager : MonoBehaviour
         towerCounter = 0;
         spwanedMalwareNumber = 0;
         _modificationCounter = 0;
+        _baseTutorial._currentHealth = _baseTutorial._maxHealth;
+        _baseTutorial.UpdateHealthBar();
         DestroyAllTheSpawnedMalware();
         _currentEnergy = maxEnergy;
         malwareIndex = int.MaxValue;
@@ -598,9 +617,9 @@ public class TutorialManager : MonoBehaviour
         yield return new WaitForSeconds(_timeBetweenTutorials);
         _currentIndex++;
         SwitchThePopupsOnAndOff();
-        SwitchRelatedGameObjectsToTheCurrentTutorial();
         ResettingTheGameVariables();
         _timeBetweenTutorialCoroutine = null;
         _closedTheTutorialPanel = false;
+
     }
 }
