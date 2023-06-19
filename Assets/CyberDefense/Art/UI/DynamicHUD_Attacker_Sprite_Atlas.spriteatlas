@@ -67,6 +67,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: b543f66155f888c4f9d23f571f5aa8a9, type: 3}
   - {fileID: 21300000, guid: 43bc20839b38e3d4eb03b986fb234be3, type: 3}
   - {fileID: 21300000, guid: 30d332487efbc4d46911801e07e55798, type: 3}
+  - {fileID: 21300000, guid: 3e6b39d97af7be84f9cfe245c827fa67, type: 3}
   - {fileID: 21300000, guid: efcfd52c8bf9834469dda28a09460401, type: 3}
   - {fileID: 21300000, guid: f69491cd60cb7e7468d27ac2d300eafe, type: 3}
   m_PackedSpriteNamesToIndex:
@@ -75,6 +76,7 @@ SpriteAtlas:
   - Ransomware
   - IMG_4425
   - Blank_Card
+  - IMG_4425 1
   - Virus
   - ADS
   m_RenderDataMap: {}
