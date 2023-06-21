@@ -47,7 +47,6 @@ public class UILayer : MonoBehaviourPunCallbacks
         else
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
 
         if (SceneManager.GetActiveScene().name == MatchManager.Instance.GAMEPLAY_SCENE_NAME)

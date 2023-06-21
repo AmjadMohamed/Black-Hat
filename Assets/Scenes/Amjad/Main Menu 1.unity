@@ -7127,7 +7127,7 @@ MonoBehaviour:
   roundTime: 150
   currentRound: 1
   MAIN_MENU_SCENE_NAME: Main Menu 1
-  GAMEPLAY_SCENE_NAME: Gameplay Scene1_aya_edit
+  GAMEPLAY_SCENE_NAME: Gameplay Scene1_aya_edit 1
   endgameClip: {fileID: 8300000, guid: 87629ebcd0e8e2f40b2be360cdf6c1b6, type: 3}
   InGame: 0
 --- !u!4 &2133242351
