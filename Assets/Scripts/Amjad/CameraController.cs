@@ -15,13 +15,25 @@ public class CameraController : MonoBehaviour
     private bool isDragging;
     private float rotateTimer;
     private bool shouldRotate;
+    private bool canTakeInput;
 
     private void Update()
     {
-        if (!EventSystem.current.IsPointerOverGameObject() && GridBuildingSystem3D.Instance.GetPlacedObjectTypeSO() == null)
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (EventSystem.current.IsPointerOverGameObject() || GridBuildingSystem3D.Instance.GetPlacedObjectTypeSO() != null)
+            {
+                canTakeInput = false;
+            }
+            else
+            {
+                canTakeInput = true;
+            }
+        }
+
+        if (canTakeInput)
         {
             HandleCameraRotation();
-
             HandleCameraZoom();
         }
     }

@@ -31,7 +31,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void CheckIfPlayerEnteredHisName()
     {
-        if (_ifPlayerNickName.text.Length > 0)
+        if (_ifPlayerNickName.text.Length > 0 && _ifPlayerNickName.text.Length < 16)
         {
             _btnLetsGo.interactable = true;
         }
