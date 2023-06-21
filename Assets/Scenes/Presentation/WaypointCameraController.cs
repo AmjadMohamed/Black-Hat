@@ -4,13 +4,16 @@ using System.Collections;
 
 public class WaypointCameraController : MonoBehaviour
 {
+
     public CinemachineVirtualCamera virtualCamera;
     public Transform[] waypoints;
-
+    public GameObject[] Slides;
     private int currentWaypointIndex = 0;
 
     private void Start()
     {
+        deactivateAllWayPoints();
+        Slides[currentWaypointIndex].SetActive(true);
         if (waypoints.Length > 0)
         {
             // Set the initial position and rotation of the virtual camera
@@ -28,6 +31,7 @@ public class WaypointCameraController : MonoBehaviour
         {
             // Move to the next waypoint
             MoveToNextWaypoint();
+
         }
         else if (Input.GetMouseButtonDown(1))
         {
@@ -41,9 +45,10 @@ public class WaypointCameraController : MonoBehaviour
 
     private void MoveToNextWaypoint()
     {
-        // Increment the waypoint index
+        StartCoroutine(
+                // Increment the waypoint index
+                DeactivateGameObject(Slides[currentWaypointIndex]));
         currentWaypointIndex++;
-
         // Check if the waypoint index exceeds the array bounds
         if (currentWaypointIndex >= waypoints.Length)
         {
@@ -56,9 +61,10 @@ public class WaypointCameraController : MonoBehaviour
 
     private void MoveToPreviousWaypoint()
     {
-        // Decrement the waypoint index
+        StartCoroutine(
+                // Decrement the waypoint index
+                DeactivateGameObject(Slides[currentWaypointIndex]));
         currentWaypointIndex--;
-
         // Move the virtual camera to the previous waypoint
         MoveCameraToWaypoint(currentWaypointIndex);
     }
@@ -66,6 +72,7 @@ public class WaypointCameraController : MonoBehaviour
     private void MoveCameraToWaypoint(int index)
     {
         // Start the interpolation coroutine for position and rotation
+        Slides[currentWaypointIndex].SetActive(true);
         StartCoroutine(InterpolateCameraToWaypoint(waypoints[index]));
     }
 
@@ -92,8 +99,22 @@ public class WaypointCameraController : MonoBehaviour
             yield return null;
         }
 
+
         // Set the final position and rotation to ensure accuracy
         virtualCamera.transform.position = targetWaypoint.position;
         virtualCamera.transform.rotation = targetWaypoint.rotation;
     }
+    void deactivateAllWayPoints()
+    {
+        foreach (GameObject plan in Slides)
+        {
+            plan.SetActive(false);
+        }
+    }
+    private IEnumerator DeactivateGameObject(GameObject gameObject)
+    {
+        yield return new WaitForSeconds(0.7f);
+        gameObject.SetActive(false);
+    }
+
 }
