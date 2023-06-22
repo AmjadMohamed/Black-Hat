@@ -104,8 +104,15 @@ using System.Collections.Generic;
     {
         var projectile = _projectilePool.GetObject() as TowerProjectileTutorial;
         _muzzleParticleSystem.Play();
-        projectile.transform.position = shootingPoint.position;
-        projectile.GetTarget(_currentTarget.transform, _damage);
+        if (projectile != null)
+        {
+            projectile.transform.position = shootingPoint.position;
+            if (_currentTarget != null)
+            {
+                projectile.GetTarget(_currentTarget.transform, _damage);
+            }
+        }
+
         if (_towerScript.currentModifications.ShootingSFX != null)
         {
             SoundManager.Instance.PlaySoundEffect(_towerScript.currentModifications.ShootingSFX , 1f);
