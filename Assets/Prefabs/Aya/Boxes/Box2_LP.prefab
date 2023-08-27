@@ -23,6 +23,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4180075141501851722}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -22.005, y: 3.173, z: -2.35}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
@@ -30,7 +31,6 @@ Transform:
   m_Children:
   - {fileID: 2943850154313146695}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9090977383153886020
 GameObject:
@@ -43,7 +43,6 @@ GameObject:
   - component: {fileID: 2943850154313146695}
   - component: {fileID: 2748820242005658416}
   - component: {fileID: 3666451340884061893}
-  - component: {fileID: 7746110503266692575}
   m_Layer: 0
   m_Name: Cube.032_LP
   m_TagString: notBuildable
@@ -58,13 +57,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9090977383153886020}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1.5228004, y: 1.7302414, z: -1.4352614}
   m_LocalScale: {x: 0.028486835, y: 0.2102248, z: 0.03429811}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3551454019108520688}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2748820242005658416
 MeshFilter:
@@ -116,16 +115,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7746110503266692575
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9090977383153886020}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 123.965096, y: 18.91445, z: 106.544846}
-  m_Center: {x: -0.000011444094, y: 9.335772, z: 0.000030517578}
