@@ -9,6 +9,7 @@ public class TowerHomingProjectile : PoolableObject
     private Vector3 _targetDir;
     private int _damage;
     [SerializeField] private float projectileSpeed;
+    [SerializeField] private GameObject hitEffect;
 
     public override void OnDisable()
     {
@@ -41,6 +42,8 @@ public class TowerHomingProjectile : PoolableObject
         if (other.CompareTag("Enemy") && other.gameObject != null && other.gameObject.activeInHierarchy)
         {
             var malwareScript = other.GetComponent<Malware>();
+            GameObject hit = PhotonNetwork.Instantiate(hitEffect.name, other.transform.position, Quaternion.identity);
+            Destroy(hit, 0.7f);
             if (malwareScript.photonView.IsMine)
             {
                 malwareScript.DamageMalware(_damage);
